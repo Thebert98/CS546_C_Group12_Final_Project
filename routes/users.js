@@ -231,7 +231,7 @@ const saltRounds = 16;
    });
  
 
-   router.get('/:id/likes', async (req, res) => {
+  /* router.get('/:id/likes', async (req, res) => {
     if(req.session.username){
         res.redirect( '/login');
      }
@@ -253,5 +253,5 @@ const saltRounds = 16;
     
    });
  
- 
+ */
  module.exports = router;
