@@ -251,7 +251,16 @@ const saltRounds = 16;
         res.status(404).render('users/error',{ message: 'User not found' });
         }
     
-   });
- 
+   }); 
  */
+
+ router.get('users/mypage') ,async (req, res) => {
+    if(req.session.username){
+        res.redirect( 'users/' +req.session.id);
+     }
+     else{
+         res.redirect('/login');
+     }
+    }
+
  module.exports = router;
