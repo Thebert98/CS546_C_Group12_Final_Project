@@ -58,6 +58,7 @@ const saltRounds = 16;
             bio : "",
             recipes: [],
             recentViewedRecipes:[],
+            count:0,
             likes: []
         };
 
