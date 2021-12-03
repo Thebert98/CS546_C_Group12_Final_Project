@@ -1,0 +1,34 @@
+<h2>Cooked something new? Share with our users.</h2>
+<form action="/postArecipe" method="POST">
+    <label>
+        <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName"> 
+    </label>
+    <label>
+        <textarea placeholder="Enter the Recipe description Here" id="recipeDescription" name="recipeDescription"></textarea>
+    </label>
+    <label>
+        <textarea placeholder="Enter the Recipe Ingredients Here" id="ingredients" name="ingredients"></textarea>
+    </label>
+    <label>
+        <textarea placeholder="Enter the Preparation Directions Here" id="preppingDirections" name="preppingDirections"></textarea>
+    </label>
+    <label>
+        <textarea placeholder="Enter the Cooking Directions Here" id="cookingDirections" name="cookingDirections"></textarea>
+    </label>
+    <label>
+        <select id="dietaryTags" name="dietaryTags">
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="nonvegetarian">Non-Vegetarian</option>
+        </select>
+    </label>
+    <label>
+        <input type="submit" value="Submit Recipe">
+    </label>
+</form>
+<div>
+    {{#if error}}
+    <p>{{error}}</p>
+    {{/if}}
+</div>
+<a href="/loggedIn">---Back to Feed---</a>

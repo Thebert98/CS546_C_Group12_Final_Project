@@ -1,0 +1,43 @@
+<div>
+    <h2>We are pleased to see you join FOODGRAM</h2>
+    <form action="/signup" method="post" id="signup-form">
+    <label>
+        <input type="text" placeholder="Enter Your First Name" id="firstname" name="firstName">
+    </label>
+    <br>
+    <label>
+        <input type="text" placeholder="Enter Your Last Name" id="lastname" name="lastName">
+    </label>
+    <br>
+    <label>
+        <input type="text" placeholder="Create Your Username" id="username" name="username">
+    </label>
+    <br>
+    <label>
+        <input type="text" placeholder="Enter Your Phone Number" id="phonenumber" name="phoneNumber">
+    </label>
+    <br>
+    <label>
+        <input type="password" placeholder="Create Your Password" id="password" name="password">
+    </label>
+    <br><br>
+    <label>
+        <input type="submit" value="Submit">
+    </label>
+    <label>
+        <button type="reset" value="reset">Clear Form</button>
+    </label>
+    <br>
+    </form>
+    <br><br>
+    <div id="errorcheck">
+        {{#if error}}
+        <p>{{error}}</p>
+        {{/if}}
+    </div>
+    <script src="/public/js/clientSideSignup.js"></script>
+    <br>
+    <a href="/login" >Already using FOODGRAM? Please Login</a>
+    <br><br>
+    <a href="/">Go Back Home</a>
+</div>
