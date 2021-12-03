@@ -1,4 +1,4 @@
-const recipes = require('../data/recipes');
+// const recipes = require('../data/recipes');
 const dbConnection = require('./mongoConnection');
 const getCollectionFn = (collection) => {
 let _col = undefined;
