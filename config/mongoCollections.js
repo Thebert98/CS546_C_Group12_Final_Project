@@ -15,5 +15,6 @@ return async () => {
 module.exports = {
     main : getCollectionFn('main'),
     recipes :getCollectionFn('recipes'),
-    comments : getCollectionFn('comments')
+    comments : getCollectionFn('comments'),
+    users : getCollectionFn('users')
 };

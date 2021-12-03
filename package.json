@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.2",
+    "express-session": "^1.17.2",
+    "handlebars": "^4.7.7",
+    "mongodb": "^4.2.1"
+  },
+  "name": "cs546_c_group12_final_project",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thebert98/CS546_C_Group12_Final_Project.git"
+  },
+  "author": "Group 12",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thebert98/CS546_C_Group12_Final_Project/issues"
+  },
+  "homepage": "https://github.com/Thebert98/CS546_C_Group12_Final_Project#readme",
+  "description": ""
+}
