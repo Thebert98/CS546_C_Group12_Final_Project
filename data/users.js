@@ -7,72 +7,7 @@ const saltRounds = 16;
 
 
 
-    
-    const create = async function create(firstName,lastName,username,password){
-        
-        if(!firstName) throw "No firstName was provided";
-        if(!lastName) throw "No lastName was provided";
-        if(!username) throw "No username was provided";
-        if(!password) throw "No password was provided";
-        if(typeof firstName !== 'string') throw "The firstName provided is not a string";
-        if(firstName.trim().length == 0) throw "The firstName provided is only white space";
-        if(typeof lastName !== 'string') throw "The lastName provided is not a string";
-        if(lastName.trim().length == 0) throw "The lastName provided is only white space";
-        
-        if(typeof username !== 'string') throw "The username provided is not a string";
-        if(username.trim().length == 0) throw "The website provided is only white space";
-        if (username.length > 4) throw "The username provided is not valid (length)";
-        if(typeof password !== 'string') throw "The password provided is not a string";
-        if(password.trim().length == 0) throw "The password provided is only white space";
-        if(password.length < 8) throw "The password provided is not valid";
-        let hasUpperCase = false;
-        let hasNumber = false;
-        let hasSpecialCharacter = false;
-        for (let i = 0; i<password.length;i++){
-            if(c == " ") spaceArray.push(c);
-            else if((c.charCodeAt(0)>=65)&&(c.charCodeAt(0)<=90)) hasUpperCase = true;
-            else if((c.charCodeAt(0)>=97)&&(c.charCodeAt(0)<=122));
-            else if((c.charCodeAt(0)>=48)&&(c.charCodeAt(0)<=57)) hasNumber = true;
-            else hasSpecialCharacter = true;
-        }
-
-        if((!hasUpperCase)||(!hasNumber)||(hasSpecialCharacter)) throw "Password is invalid";
-       
-        userCollection = await users();
-
-        usernameCheck = await userCollection.findOne({username: username.toLowerCase()})
-
-        if(usernameCheck != null) throw "username already exists";
-
-    
-        const hash = await bcrypt.hash(password,saltRounds);
-
-
-        let newUser = {
-            firstName : firstName, 
-            lastName : lastName,
-            username: username,
-            password : hash,
-            profilePicture: "default.jpg",
-            favoriteRecipe : "",
-            bio : "",
-            recipes: [],
-            recentViewedRecipes:[],
-            count:0,
-            likes: []
-        };
-
-        const insertInfo = await userCollection.insertOne(newUser);
-        if(insertInfo.insertedCount === 0) throw 'Could not add user';
-
-
-        const newId = insertInfo.insertedId.toString();
-        
-        let user = await get(newId);
-
-        
-        
-    }
+   
 
 
     const getAll = async function getAll(){
@@ -187,28 +122,6 @@ async function updateFavoriteRecipe(id,favoriteRecipe){
         
 }
 
-let checkUser = async function checkUser(username,password){
-    if(!username)throw "No username was provided";
-    if(!password) throw "No password was provided";
-    if(username.length < 4) throw 'username must be at least 4 characters long'
-    for (let i = 0; i<username.length;i++){
-        if((username.charCodeAt(i)>=65)&&(username.charCodeAt(i)<=90));
-        else if((username.charCodeAt(i)>=97)&&(username.charCodeAt(i)<=122));
-        else if((username.charCodeAt(i)>=48)&&(username.charCodeAt(i)<=57));
-        else throw 'username cannot contain characters other than letters and numbers';
-    }
-
-    userCollection = await users();
-    if(password.length < 6) throw "password must be at least 6 characters long";
-    if(password != password.trim(" ")) throw "password provided contains a space which is not allowed";
-
-    usernameCheck = await userCollection.findOne({username: username.toLowerCase()})
-
-    if(usernameCheck == null) throw "Either the username or password is invalid";
-    if(!await bcrypt.compare(password,usernameCheck.password))throw "Either the username or password is invalid";
-
-    return {authenticated:true};
-}
 
 
 
