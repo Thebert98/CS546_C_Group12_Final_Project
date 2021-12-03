@@ -6,6 +6,9 @@
     let firstNameInput = document.getElementById("firstname");
     let lastNameInput = document.getElementById("lastname");
     let phoneNumberInput = document.getElementById("phonenumber");
+
+//    let phoneNumberInput = document.getElementById("phonenumber");
+
     let errorDiv = document.getElementById('errorcheck');
     if (myForm) {
     myForm.addEventListener("submit", (event) => {
