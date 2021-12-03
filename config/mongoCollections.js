@@ -1,3 +1,4 @@
+const recipes = require('../data/recipes');
 const dbConnection = require('./mongoConnection');
 const getCollectionFn = (collection) => {
 let _col = undefined;
@@ -12,5 +13,7 @@ return async () => {
 };
 };
 module.exports = {
-    main : getCollectionFn('main')
+    main : getCollectionFn('main'),
+    recipes :getCollectionFn('recipes'),
+    comments : getCollectionFn('comments')
 };

@@ -3,8 +3,7 @@
  */
 const mongoCollections = require('../config/mongoCollections');
 let { ObjectId } = require('mongodb');
-const { all } = require('../routes/recipes');
-
+// const { all } = require('../routes/recipes');
 const recipes = mongoCollections.recipes;
 module.exports = {
 	/**
