@@ -6,12 +6,12 @@ const router = express.Router();
 const data = require('../data');
 const recipeData = data.recipes;
 
-router.get('/', async (req, res) => {
+router.get('/loggedIn', async (req, res) => {
 	try {
 		const recipeList = await recipeData.getAll();
-		res.json(recipeList);
+		res.status(200).render('loggedIn',{recipeList:recipeList});
 	} catch (e) {
-		res.status(500).send();
+		res.status(500).json({error:'Cannot get feed'});
 	}
 });
 

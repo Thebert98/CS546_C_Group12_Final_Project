@@ -5,16 +5,9 @@ const bcrypt = require("bcrypt");
 const saltRounds = 16;
 
 
-
-
-   
-
-
     const getAll = async function getAll(){
         const userCollection = await users();
-
         const userList = await userCollection.find({}).toArray();
-        
         if(!userList) userList = [];
         userList.forEach((obj) =>{
             let tempId = obj._id.toString();
@@ -24,27 +17,21 @@ const saltRounds = 16;
         return userList;
     }
 
+
+
+
     const get = async function get(id){
         if(!id) throw "No id was provided";
         if(typeof id !== "string") throw "The id provided is not a string";
         let parsedId = await ObjectId(id)
-        
-        
-            
         const userCollection = await users();
-        user = await userCollection.findOne({_id: parsedId});
-        
-
+        let user = await userCollection.findOne({_id: parsedId});
         if(user == null) throw "There is no user with this id";
-
         user._id = id;
-
         return user;
-
-
 }
 
- 
+
 
 async function updateProfilePicture(id,profilePicture){
     if(!id) throw "No id was provided";
@@ -54,12 +41,10 @@ async function updateProfilePicture(id,profilePicture){
     if(profilePicture.length< 5) throw "The profilePicture provided is not valid";
     if(profilePicture.substring(website.length -5 ).toLowerCase() !== ".jpeg") throw "The profilePicture provided is a jpeg file";
     
-    user = get(id);
+    let user = get(id);
     user.profilePicture = profilePicture;
     const userCollection = await users();
-
     id = ObjectId(id);
-
     const updatedInfo = await restaurantCollection.updateOne(
         {_id: id},
         {$set: user}
@@ -67,9 +52,7 @@ async function updateProfilePicture(id,profilePicture){
     if (updatedInfo.modifedCount === 0){
         throw "Could not update user successfully";
     } 
-
     return await this.get(id);
-        
 }
 
 async function updateBio(id,bio){
@@ -79,12 +62,10 @@ async function updateBio(id,bio){
     if(typeof bio !="string") throw "The bio provided is not valid";
     if(bio.length > 500) throw "The bio provided is not valid";
     
-    user = get(id);
+    let user = get(id);
     user.bio = bio;
     const userCollection = await users();
-    
     id = ObjectId(id);
-
     const updatedInfo = await restaurantCollection.updateOne(
         {_id: id},
         {$set: user}
@@ -92,11 +73,12 @@ async function updateBio(id,bio){
     if (updatedInfo.modifedCount === 0){
         throw "Could not update user successfully";
     } 
-
     return await this.get(id);
-        
 }
-     
+
+
+
+
 async function updateFavoriteRecipe(id,favoriteRecipe){
     if(!id) throw "No id was provided";
     if(typeof id !== "string") throw "The id provided is not a string";
@@ -104,12 +86,10 @@ async function updateFavoriteRecipe(id,favoriteRecipe){
     if(typeof favoriteRecipe !="string") throw "The favoriteRecipe provided is not valid";
     if(favoriteRecipe.length > 20) throw "The favoriteRecipe provided is not valid";
     
-    user = get(id);
+    let user = get(id);
     user.favoriteRecipe = favoriteRecipe;
     const userCollection = await users();
-    
     id = ObjectId(id);
-
     const updatedInfo = await restaurantCollection.updateOne(
         {_id: id},
         {$set: user}
@@ -117,9 +97,7 @@ async function updateFavoriteRecipe(id,favoriteRecipe){
     if (updatedInfo.modifedCount === 0){
         throw "Could not update user successfully";
     } 
-
     return await this.get(id);
-        
 }
 
 
@@ -127,11 +105,9 @@ async function updateFavoriteRecipe(id,favoriteRecipe){
 
 
 module.exports = {
-    create,
     getAll,
     get,
     updateProfilePicture,
     updateBio,
     updateFavoriteRecipe,
-    checkUser
 }
