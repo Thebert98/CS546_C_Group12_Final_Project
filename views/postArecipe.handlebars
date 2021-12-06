@@ -1,13 +1,13 @@
 <h2>Cooked something new? Share with our users.</h2>
 <form action="/postArecipe" method="POST">
+    <label for="recipeName">Enter Recipe Name:</label>
+    <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName"><br>
+    <label for="avatar">Upload Recipe Picture:</label>
+    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"><br>
+    <label for="recipeDescription">Enter Recipe Description:</label>
+    <textarea placeholder="Enter the Recipe description Here" id="recipeDescription" name="recipeDescription"></textarea>
     <label>
-        <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName"> 
-    </label>
-    <label>
-        <textarea placeholder="Enter the Recipe description Here" id="recipeDescription" name="recipeDescription"></textarea>
-    </label>
-    <label>
-        <textarea placeholder="Enter the Recipe Ingredients Here" id="ingredients" name="ingredients"></textarea>
+    <textarea placeholder="Enter the Recipe Ingredients Here" id="ingredients" name="ingredients"></textarea>
     </label>
     <label>
         <textarea placeholder="Enter the Preparation Directions Here" id="preppingDirections" name="preppingDirections"></textarea>
