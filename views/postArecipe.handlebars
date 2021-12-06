@@ -1,20 +1,40 @@
 <h2>Cooked something new? Share with our users.</h2>
-<form action="/postArecipe" method="POST">
+<form action="/recipe/postArecipe" method="POST" id="post-a-recipe-form">
     <label>
         <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName"> 
     </label>
+    <br><br>
+    <label>
+        <input type="text" placeholder="Upload the recipe picture" id="recipepicture" name="recipePicture">
+    </label>
+    <br><br>
     <label>
         <textarea placeholder="Enter the Recipe description Here" id="recipeDescription" name="recipeDescription"></textarea>
     </label>
+    <br><br>
     <label>
         <textarea placeholder="Enter the Recipe Ingredients Here" id="ingredients" name="ingredients"></textarea>
     </label>
+    <br><br>
     <label>
         <textarea placeholder="Enter the Preparation Directions Here" id="preppingDirections" name="preppingDirections"></textarea>
     </label>
+    <br><br>
     <label>
         <textarea placeholder="Enter the Cooking Directions Here" id="cookingDirections" name="cookingDirections"></textarea>
     </label>
+    <br><br>
+    <label>
+        <select id="cuisineType" name="cuisineType">
+            <option value="italian">Italian</option>
+            <option value="mexican">Mexican</option>
+            <option value="indian">Indian</option>
+            <option value="american">American</option>
+            <option value="lebanese">Lebanese</option>
+            <option value="other">Other</option>
+        </select>
+    </label>
+    <br><br>
     <label>
         <select id="dietaryTags" name="dietaryTags">
             <option value="vegan">Vegan</option>
@@ -22,13 +42,16 @@
             <option value="nonvegetarian">Non-Vegetarian</option>
         </select>
     </label>
+    <br><br>
     <label>
         <input type="submit" value="Submit Recipe">
     </label>
+    <br>
 </form>
-<div>
+<div id="errorcheck">
     {{#if error}}
     <p>{{error}}</p>
     {{/if}}
 </div>
-<a href="/loggedIn">---Back to Feed---</a>
+<script src="/public/js/clientSidepostArecipe.js"></script>
+<a href="/loggedIn">Back to Feed</a>

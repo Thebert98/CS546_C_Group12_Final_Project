@@ -1,0 +1,18 @@
+<div>
+    <form action="/recipe/searchArecipe" method="post" id="formForSearch">
+        <label>
+            <input type="search" id="searchrecipe" name="searchrecipe" placeholder="Search A Recipe">
+        </label>
+        <label>
+            <input type="submit" value="Submit">
+        </label>
+        <br><br>
+    </form>
+    <div id="errorcheck">
+    {{#if error}}
+    <p>{{error}}</p>
+    {{/if}}
+    </div>
+    <a href="/loggedIn">Back To Feed</a>
+    <script src="/public/js/clientSidepostArecipe.js"></script>
+</div>

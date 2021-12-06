@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "ajax": "^0.0.4",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",

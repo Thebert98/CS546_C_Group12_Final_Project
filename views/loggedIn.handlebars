@@ -2,45 +2,28 @@
     <h1>FOODGRAM</h1>
     <h2>Hello, {{username}}</h2>
     <label>
-        <button type="button" onclick= "window.location.href='myProfile'" id="myprofile" name="myProfile">View My Profile</button>
+        <button type="submit" onclick= "window.location.href='users/myProfile'" id="myprofile" name="myProfile">View My Profile</button>
     </label>
     <label>
-        <button type="button" onclick= "window.location.href='postArecipe'" id="postarecipe" name="postrecipe">Post A Recipe</button>
+        <button type="button" onclick= "window.location.href='recipe/postArecipe'" id="postarecipe" name="postrecipe">Post A Recipe</button>
     </label>
     <br><br>
-    <form action="/loggedIn" method="get">
-        <label>
-        <input type="search" id="searchrecipe" name="searchrecipe" placeholder="Search A Recipe">
-        </label>
-        <label>
-            <input type="submit" value="Submit">
-        </label>
-        <br><br>
-    </form>
-    <form action="/loggedIn" method="get">
-        <label for="cuisines">Sort by Cuisine</label>
-        <br>
-        <select id="cuisines" name="cuisines">
-            <option value="italian">Italian</option>
-            <option value="mexican">Mexican</option>
-            <option value="indian">Indian</option>
-            <option value="american">American</option>
-            <option value="lebanese">Lebanese</option>
-            <input type="submit">
-        </select>
-    </form>
-    <br><br><br>
-    <form action="/loggedIn" method="get">
-        <label for="DietaryTags">Sort by Dietary Tag</label>
-        <br>
-        <select id="dietarytags" name="dietarytags">
-            <option value="vegan">Vegan</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="nonvegetarian">Non-Vegetarian</option>
-            <input type="submit">
-        </select>
-    </form>
+    <button onclick="window.location.href='recipe/searchArecipe'">SEARCH A RECIPE</button>
     <br><br>
-    
+    <button onclick="window.location.href='recipe/sortByDietaryTags'">SORT BY DIETARY TAGS</button>
+    <br><br>
+    <button onclick="window.location.href='recipe/sortedCuisine'">SORT BY CUISINE</button>
+    <br><br>
+    {{#if allRecipes}}
+    {{#each allRecipes}}
+    <ul>
+        <li>
+            <form method="post" value={{this._id}}>
+            <a href="/recipe/post/{{this._id}}">{{recipeName}}</a>
+            </form>
+        </li>
+    </ul>
+    {{/each}}
+    {{/if}}
     <a href="/logout">Log Out</a>
 </div>

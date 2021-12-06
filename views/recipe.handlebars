@@ -1,0 +1,31 @@
+<h2>Know more about this recipe</h2>
+<div>
+    <h2>{{a.recipeName}}</h2>
+    <p>{{a.recipePicture}}</p>
+    <p id="m">{{a.recipeDescription}}</p>
+    <h4>Comments:</h4>
+    {{#each b}}
+    <ul>
+        <h5>{{subject}}</h5>
+        <p>{{description}}</p>
+    </ul>
+    {{/each}}
+</div>
+<div>
+    <form id="comm" method="post" action="/recipe/comments">Comment On This Recipe
+    <input type="hidden" name="recipeId" id="recipeId" value="{{recipeId}}">
+    <br><br>
+    <input type="text" placeholder="Enter Subject Line" id="subject" name="subject">
+    <br><br>
+    <textarea id="description" placeholder="Enter Description" name="description"></textarea>
+    <br><br>
+    <button type="submit" value="Submit">Submit</button>
+    </form>
+    <br><br>
+    <a href="/loggedIn">Back to Feed</a>
+</div>
+<div id="errorcheck">
+    {{#if error}}
+    <p>{{error}}</p>
+    {{/if}}
+</div>

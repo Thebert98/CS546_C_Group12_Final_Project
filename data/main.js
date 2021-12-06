@@ -2,7 +2,7 @@ let {ObjectId} = require("mongodb");
 let mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.main;
 const bcrypt = require('bcryptjs');
-const saltRounds = 16;
+const saltRounds = 5;
 
 //Creating a user
 

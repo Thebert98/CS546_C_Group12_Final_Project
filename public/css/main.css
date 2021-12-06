@@ -94,3 +94,16 @@ label {
   color: white;
   font-size: 1.3rem;
 }
+
+#m {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+#comm {
+  color: white;
+}
+h4 {
+  text-align: center;
+  color: wheat;
+}

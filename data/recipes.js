@@ -4,7 +4,7 @@ let { ObjectId } = require('mongodb');
 const recipes = mongoCollections.recipes;
 
 //Create
-	async function create(recipeName,recipePicture,recipeDescription,ingredients,preppingDirections,cookingDirections,cuisineType,comments,likes,dietaryTags) 
+	async function create(recipeName,recipePicture,recipeDescription,ingredients,preppingDirections,cookingDirections,cuisineType,dietaryTags) 
 		{
 		if (!recipeName || typeof recipeName != 'string')
 			throw 'A recipeName of type string must be provided for your recipe recipeName';
@@ -13,63 +13,33 @@ const recipes = mongoCollections.recipes;
 		if (!recipeDescription || typeof recipeDescription != 'string') {
 			throw 'A phonenumber of type string must be provided for your recipe phonenumber';
 		}
-		if (typeof dietaryTags != 'object') {
-			throw 'dietaryTags: Not a valid object';
+		if(typeof ingredients != 'string'){
+			throw 'Ingrediants must be a string'
 		}
-		if (typeof dietaryTags.vegan != 'boolean' || typeof dietaryTags.vegetarian != 'boolean' || typeof dietaryTags.nonvegetarian != 'boolean') 
-		{
-			throw 'dietaryTags: params are not boolean';
+		if(typeof preppingDirections != 'string'){
+			throw 'Prepping Directions must be a string'
+		}
+		if(typeof cookingDirections != 'string'){
+			throw 'Cooking Directions must be a string'
+		}
+		if(typeof dietaryTags!='string'){
+			throw 'Cooking directions must be a string'
 		}
 		if (!ingredients) {
 			throw 'kindly enter ingredients';
 		}
-		if (!Array.isArray(ingredients)) {
-			throw 'No inputs provided or the  ingredients is not an array';
-		}
-		for (let i = 0; i < ingredients.length; i++) {
-			if (typeof ingredients[i] != 'string') {
-				throw 'The values of ingredients are not a string';
-			}
-			if (ingredients[i] == ' ') {
-				throw 'The values of ingredients are not a string';
-			}
-			if (!preppingDirections) {
-				throw 'kindly enter preppingDirections';
-			}
-			if (!Array.isArray(preppingDirections)) {
-				throw 'No inputs provided or the  preppingDirections is not an array';
-			}
-		}
-		for (let i = 0; i < preppingDirections.length; i++) {
-			if (typeof preppingDirections[i] != 'string') {
-				throw 'The values of preppingDirections are not a string';
-			}
-			if (preppingDirections[i] == ' ') {
-				throw 'The values of preppingDirections are not a string';
-			}
+		if (!preppingDirections) {
+			throw 'kindly enter preppingDirections';
 		}
 		if (!cookingDirections) {
-			throw 'kindly enter  cookingDirections';
-		}
-		if (!Array.isArray(cookingDirections)) {
-			throw 'No inputs provided or the  cookingDirections is not an array';
-		}
-		for (let i = 0; i < cookingDirections.length; i++) {
-			if (typeof cookingDirections[i] != 'string') {
-				throw 'The values of cookingDirections are not a string';
-			}
-			if (cookingDirections[i] == ' ') {
-				throw 'The values of cookingDirections are not a string';
-			}
+			throw 'kindly enter cookingDirections';
 		}
 		if (!cuisineType || typeof cuisineType != 'string') {
 			throw 'kindly enter cusine and it must be string';
 		}
-		if (!likes || typeof likes != 'number') {
-			throw 'kindly enter comments and it must be number';
-		}
+		cuisineType=cuisineType.toLowerCase();
 		const recipeCollection = await recipes();
-		comments= [];
+		likes = 0;
 		const newRecipe = {
 			recipeName: recipeName,
 			recipePicture: recipePicture,
@@ -78,40 +48,32 @@ const recipes = mongoCollections.recipes;
 			preppingDirections: preppingDirections,
 			cookingDirections: cookingDirections,
 			cuisineType: cuisineType,
-			comments:comments,
-			likes:likes,
+			comments:[],
+			likes:0,
 			dietaryTags:dietaryTags
 		};
 		const insertRecipe = await recipeCollection.insertOne(newRecipe);
 		if (insertRecipe.insertedCount === 0) {
-			throw `error while adding ${newRecipe}`;
+			throw `Error while adding ${newRecipe}`;
 		}
 		let recipeId = insertRecipe.insertedId;
 		recipeId = recipeId.toString();
 		return await get(recipeId);
 	}
-// create('fdf','eeded','edede',['deded'],['tgtg'],['fvff'],'fcff',['khbhewidg','qbdgiuge'],7,{vegan:true,vegetarian:true,nonvegetarian:false});
 
 
 //Get All
 	async function getAll() {
 		const recipeCollection = await recipes();
 		const allrecipe = await recipeCollection.find({}).toArray();
-		// let recipe = [];
 		return allrecipe;
-		// for (i in allrecipe) {
-		// 	recipe.push({
-		// 		_id: allrecipe[i]._id,
-		// 		recipeName: allrecipe[i].recipeName,
-		// 	});
-		// }
-		// console.log (recipe);
 	}
+	// getAll();
 
 
 	//Get by ID
 	async function get(id) {
-		let { ObjectId } = require('mongodb');
+		// let { ObjectId } = require('mongodb');
 		if (!id) {
 			throw 'An ID is required to search for an recipe';
 		}
@@ -132,11 +94,91 @@ const recipes = mongoCollections.recipes;
 		return recipe;
 	}
 
+// Search a recipe (NOT WORKING)
+async function searchRecipe(recipenameID){
+	if(!recipenameID){
+		throw 'No Recipe Name was provided'
+	}
+	if(typeof recipenameID !='string'){
+		throw 'Recipe Name must be string'
+	}
+	if(recipenameID.indexOf(' ')>=0){
+		throw 'Input cannot have empty spaces'
+	}
+	var retArray = [];
+	var a;
+	var b;
+	const searchingForRecipe = await recipes();
+	const recipeSearch = await searchingForRecipe.find({}).toArray();
+	for(i=0;i<recipeSearch.length;i++){
+		let retObj={}
+		a=recipeSearch[i].recipeName;
+		b=recipeSearch[i]._id.toString();
+		retObj['id']=b;
+		retObj['recipeName']=a;
+		retArray.push(retObj);
+	}
+	return retArray;
+}
+
+//Sort by Cuisine
+
+async function cuisineSort(cuisine){
+	if(!cuisine){
+		throw 'No cuisine was provided'
+	}
+	if(typeof cuisine !='string'){
+		throw 'Cuisine must be a string'
+	}
+	if(cuisine.length===0){
+		throw 'Cuisine cannot be empty'
+	}
+	cuisine=cuisine.toLowerCase();
+	var a;
+	var pushArr = [];
+	const cuisineSort = await recipes();
+	const cuisineSortAll = await cuisineSort.find({}).toArray();
+	for(j=0;j<cuisineSortAll.length;j++){
+		a=cuisineSortAll[j].cuisineType;
+		if(a==cuisine){
+			pushArr.push(cuisineSortAll[j]);
+		}
+	}
+	return pushArr;
+}
+
+//Sort by Dietary Tags
+async function dietaryTagsSort(dtags){
+	if(!dtags){
+		throw 'No input was provided'
+	}
+	if(typeof dtags != 'string'){
+		throw 'Input must be a string'
+	}
+	if(dtags.length===0){
+		throw 'input cannot be empty'
+	}
+	var b;
+	var retArr1 =[];
+	dtags = dtags.toLowerCase();
+	const dtagsSort = await recipes();
+	const sortDtags = await dtagsSort.find({}).toArray();
+	for(k=0;k<sortDtags.length;k++){
+		b=sortDtags[k].dietaryTags;
+		if(b==dtags){
+			retArr1.push(sortDtags[k]);
+		}
+	}
+	return retArr1;
+}
 
 
 
 	module.exports={
 		create,
 		getAll,
-		get
+		get,
+		searchRecipe,
+		cuisineSort,
+		dietaryTagsSort
 	}

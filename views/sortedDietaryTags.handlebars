@@ -1,0 +1,29 @@
+<div>
+<form action="/recipe/sortByDietaryTags" method="post">
+    <label for="DietaryTags">Sort by Dietary Tag</label>
+    <br><br>
+    <select id="dietarytags" name="dietarytags">
+        <option value="vegan">Vegan</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="nonvegetarian">Non-Vegetarian</option>
+    </select>
+    <label>
+        <input type="submit" value="Submit Option">
+    </label>
+</form>
+</div>
+<div>
+{{#if error}}
+<p>{{error}}</p>
+{{/if}}
+</div>
+<div>
+{{#each sortDT}}
+<ul>
+    <form method="post" value={{this._id}}>
+        <li><a href="/recipe/post/{{this._id}}">{{recipeName}}</a></li>
+    </form>
+</ul>
+{{/each}}
+</div>
+<a href="/loggedIn">Back To Feed</a>

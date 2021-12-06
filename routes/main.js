@@ -3,6 +3,21 @@ const router = express.Router();
 const mongoCollections=require('../config/mongoCollections');
 const usersData = require('../data/main');
 const main = mongoCollections.main;
+const recipeData = require('../data/recipes')
+
+
+
+router.get('/loggedIn',async(req,res)=>{
+		const allRecipes = await recipeData.getAll();
+		let id = req.body._id;
+		if(allRecipes){
+			res.render('loggedIn',{username:req.session.user.username, allRecipes:allRecipes,id:id});
+			return;
+		}else{
+			res.render('loggedIn',{error:'No Feed Available'});
+			return;
+		}
+});
 
 router.get('/',async(req,res)=>{
     if(!req.session.user){
@@ -168,9 +183,11 @@ router.post('/login',async(req,res)=>{
     }
 });
 
-router.get('/loggedIn',async(req,res)=>{
-    res.render('loggedIn',{username:req.session.user.username});
-});
+// router.get('/loggedIn',async(req,res)=>{
+//     // console.log("kewal");
+//     res.render('loggedIn',{username:req.session.user.username});
+    
+// });
 
 router.get('/logout',async(req,res)=>{
     req.session.destroy();

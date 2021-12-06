@@ -1,0 +1,30 @@
+<div>
+<form action="/recipe/sortedCuisine" method="post"> 
+    <label for="cuisines">Sort by Cuisine</label>
+    <br><br>
+    <select id="cuisines" name="cuisines">
+        <option value="italian" name="italian">Italian</option>
+        <option value="mexican" name="mexican">Mexican</option>
+        <option value="indian" name="indian">Indian</option>
+        <option value="american" name="american">American</option>
+        <option value="lebanese" name="lebanese">Lebanese</option>
+        <option value="other" name="other">Other</option>
+    </select>
+    <label>
+        <input type="submit" value="Submit Option">
+    </label>
+</form>
+</div>
+{{#if error}}
+<p>{{error}}</p>
+{{/if}}
+<div>
+    {{#each sortCui}}
+    <ul>
+        <form method="post" value={{this._id}}>
+        <li><a href="/recipe/post/{{this._id}}">{{recipeName}}</a></li>
+        </form>
+    </ul>
+    {{/each}}
+    <a href="/loggedIn">Back To Feed</a>
+</div>

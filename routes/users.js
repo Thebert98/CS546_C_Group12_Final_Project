@@ -116,12 +116,12 @@ const saltRounds = 16;
         }
     }
     
-     try{
-     user = user = await userData.get(req.session.id);
-     res.status.render('users/userpage',{user: user});
-     }catch(e){
+    try{
+    user = user = await userData.get(req.session.id);
+    res.status.render('users/userpage',{user: user});
+    }catch(e){
         res.status(400).render('users/error',{error: e});
-     }
+    }
 
  
    });
@@ -147,16 +147,28 @@ const saltRounds = 16;
         res.status(404).render('users/error',{ message: 'User not found' });
         }
     
-   }); 
+}); 
+
+
  */
 
- router.get('users/mypage') ,async (req, res) => {
+
+router.get('users/mypage') ,async (req, res) => {
     if(req.session.username){
         res.redirect( 'users/' +req.session.id);
-     }
-     else{
-         res.redirect('/login');
-     }
+    }
+    else{
+        res.redirect('/login');
+    }
     }
 
- module.exports = router;
+    router.get('/myProfile', async(req,res)=>{
+	if(req.session.user){
+		res.render('myProfile');
+		return;
+	}else{
+		res.status(400).json({error:'User must login to view their profile'});
+	}
+})
+
+module.exports = router;
