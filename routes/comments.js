@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+<<<<<<< HEAD
 const commentData = require('../data/comments');
 
 
@@ -40,3 +41,5 @@ router.post('/',async(req,res)=>{
 
 
 module.exports=router;
+=======
+>>>>>>> 2128984552900e4698da8d6bab16b5b995b0ed8c

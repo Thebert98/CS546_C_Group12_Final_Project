@@ -1,4 +1,5 @@
 <h2>Cooked something new? Share with our users.</h2>
+<<<<<<< HEAD
 <form action="/recipe/postArecipe" method="POST" id="post-a-recipe-form">
     <label>
         <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName"> 
@@ -35,6 +36,23 @@
         </select>
     </label>
     <br><br>
+=======
+<form action="/postArecipe" method="POST">
+    <label for="recipeName">Enter Recipe Name:</label>
+    <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName" required><br>
+    <label for="avatar">Upload Recipe Picture:</label>
+    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"><br>
+    <label for="recipeDescription">Enter Recipe Description:</label>
+    <textarea placeholder="Enter the Recipe description Here" id="recipeDescription" name="recipeDescription" required></textarea><br>
+    <label for="ingredients">Enter Ingredients:</label>
+    <textarea placeholder="Enter the Recipe Ingredients Here" id="ingredients" name="ingredients" required></textarea><br>
+    <label for="preppingDirections">Enter Prepping Directions:</label>
+    <textarea placeholder="Enter the Preparation Directions Here" id="preppingDirections" name="preppingDirections" required></textarea><br>
+    <label for="cookingDirections">Enter Cooking Recipe Directions:</label>
+    <textarea placeholder="Enter the Cooking Directions Here" id="cookingDirections" name="cookingDirections" required></textarea><br>
+    <label for="ct">Enter Cusine Type:</label>
+    <input type="text" id="ct" required><br>
+>>>>>>> 2128984552900e4698da8d6bab16b5b995b0ed8c
     <label>
         <select id="dietaryTags" name="dietaryTags">
             <option value="vegan">Vegan</option>

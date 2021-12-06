@@ -1,0 +1,82 @@
+<head>
+	<header>
+		
+		<title>{{user.username}} Profile Page</title>
+	</header>
+    
+    <meta charset="UTF-8">
+    
+   <link rel='stylesheet' href='public/css/style.css'/>
+    
+    <button id='likesButton' >Likes</button>
+    <button id='profileButton' hidden>Profile</button>
+    
+</head>
+<body>
+    <h2 class='error'>{{error}}</h2>
+    <div id="profile">
+        <h1>{{user.username}}</h1>
+        
+        <img alt='{{user.username}} profile picture' src='images/{{user.profilepicture}}' />
+        <br>
+        <br>
+        <h2> {{user.firstName}}  {{user.lastName}}</h2>
+        <br>
+        <br>
+        <p>Bio: {{user.bio}}</p>
+        <br>
+        <p>Favorite Recipe: {{user.favoriteRecipe}}</p>
+        <br>
+        <ul>
+                {{#each user.recipes}}
+                    <li>
+                    <a href="/recipes/{{id}}">{{name}}</a>
+                    </li> 
+                    {{else}}
+                    <p class="not-found">We're sorry, but this user has not posted any recipes.</p>
+                {{/each}}     
+        </ul>
+    </div>
+    <div id='likes' hidden>
+        <h1>{{user.username}}</h1>
+        <br>
+        <br>
+        <img alt='{{user.username}} profile picture' src='images/{{user.profilepicture}}' />
+        <br>
+        <br>
+        <h2> {{user.firstName}}  {{user.lastName}}</h2>
+        <br>
+        <br>
+        <h3>Liked Recipes:</h3>
+        <ul>
+                {{#each user.Likes}}
+                    <li>
+                    <a href="/recipes/{{id}}">{{name}}</a>
+                    </li> 
+                    {{else}}
+                    <p class="not-found">We're sorry, but this user has not liked any recipes.</p>
+                {{/each}}     
+        </ul>
+    </div>
+</body>
+
+<script>
+        let profileButton = document.getElementById('profileButton')
+        let likesButton = document.getElementById('likesButton')
+        let profile = document.getElementById('profile')
+        let likes = document.getElementById('likes')
+            
+        likesButton.addEventListener('click',(event)=>{
+            profile.hidden = true;
+            likesButton.hidden = true;
+            profileButton.hidden = false;
+            likes.hidden = false;
+        }) 
+        profileButton.addEventListener('click',(event)=>{
+            profile.hidden = false;
+            likesButton.hidden = false;
+            profileButton.hidden = true;
+            likes.hidden = true;
+        })          
+        
+    </script>
