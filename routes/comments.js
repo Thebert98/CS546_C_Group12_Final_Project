@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
-const bookdata = data.restaurants;
+const bookdata = data.comments;
 
 router.get('/:id', async (req, res) => {
     try {
