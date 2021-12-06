@@ -8,7 +8,7 @@ router.get('/:id', async (req, res) => {
       let book = await bookdata.get(req.params.id);
       res.status(200).json(book);
     } catch (e) {
-      res.status(404).json({ error: 'Restaurant not found' });
+      res.status(404).json({ error: 'Comment not found' });
     }
   });
   
@@ -36,14 +36,14 @@ router.post('/', async (req, res) => {
         let bookInfo = req.body;
       
         if (!bookInfo) {
-          res.status(400).json({ error: 'You must provide data to update a restaurant' });
+          res.status(400).json({ error: 'You must enter something to update a comment' });
           return;
         }
 
         try {
             await bookdata.get(req.params.id);
           } catch (e) {
-            res.status(404).json({ error: 'restaurant not found' });
+            res.status(404).json({ error: 'comment not found' });
             return;
           }
           try {
@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
     try {
       await bookdata.get(req.params.id);
     } catch (e) {
-      res.status(404).json({ error: 'restaurant not found' });
+      res.status(404).json({ error: 'comment not found' });
       return;
     }
   
@@ -67,7 +67,7 @@ router.post('/', async (req, res) => {
      const deleted = await bookdata.remove(req.params.id);
       res.status(200).json(deleted);
     } catch (e) {
-      res.status(404).json({error: "Could not delete restaurant"});
+      res.status(404).json({error: "Could not delete comment"});
     }
   });
   module.exports = router;
