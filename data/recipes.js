@@ -98,17 +98,23 @@ const recipes = mongoCollections.recipes;
 	}
 
 // Search a recipe (NOT WORKING)
-async function searchRecipe(recipenameID){
-	if(!recipenameID){
-		throw 'No Recipe Name was provided'
+async function searchRecipe(searchTerm){
+	if(!searchTerm){
+		throw 'No searchTerm was provided'
 	}
-	if(typeof recipenameID !='string'){
-		throw 'Recipe Name must be string'
+	if(typeof searchTerm !='string'){
+		throw 'searchTerm provided is not a string'
 	}
-	if(recipenameID.indexOf(' ')>=0){
-		throw 'Input cannot have empty spaces'
+	if(searchTerm.trim(' ').length ==0){
+		throw 'Input be just whitespaces'
 	}
-	var retArray = [];
+
+	const searchingForRecipe = await recipes();
+	await searchingForRecipe.createIndex({recipeName: "text"});
+	const recipeSearch = await searchingForRecipe.find({$text:{$search: searchTerm}}).toArray();
+	console.log(recipeSearch);
+
+	/*var retArray = [];
 	var a;
 	var b;
 	const searchingForRecipe = await recipes();
@@ -121,7 +127,8 @@ async function searchRecipe(recipenameID){
 		retObj['recipeName']=a;
 		retArray.push(retObj);
 	}
-	return retArray;
+	*/
+	return recipeSearch;
 }
 
 //Sort by Cuisine

@@ -89,8 +89,14 @@ router.post('/postArecipe',async(req,res)=>{
 		res.status(404).render('postArecipe',{error:'Inputs cannot be empty'});
 		return;
 	}
-	let regexR = /[^0-9a-z]/gi;
-	if(recipeNameRoutes.match(regexR)){
+	let regexR = /[^0-9a-z\s]/gi;
+	
+	if(recipeNameRoutes.trim(" ").length ===0){
+		res.status(404).render('postArecipe',{error:'Recipe Name cannot be only white space'});
+		return;
+	}
+	
+	if(recipeNameRoutes.trim(" ").match(regexR)){
 		res.status(404).render('postArecipe',{error:'Recipe Name cannot have special characters'});
 		return;
 	}
@@ -177,6 +183,41 @@ router.get('/searchArecipe',async(req,res)=>{
 });
 
 //Route to post on /searchArecipe(TODO)
+router.post('/searchArecipe', async (req,res)=>{
+	if(!req.session.user){
+		res.redirect('/login');
+		return;
+	}
+	if(!req.body){
+		res.status(400).render('users/error',{error: "No searchTerm was provided"});
+		return;
+
+	}
+	let data = req.body;
+	if(!data.searchTerm){
+		res.status(400).render('users/error',{error: "No searchTerm was provided"});
+		return;
+	}
+	console.log(data.searchTerm);
+	console.log(typeof data.searchTerm);
+	if(typeof data.searchTerm !='string'){
+		res.status(400).render('users/error',{error: "searchTerm provided is not a string"});
+		return;
+	}
+	if(data.searchTerm.trim(' ').length ==0){
+		res.status(400).render('users/error',{error: "Input cannot be only whitespace"});
+		return;
+	}
+	
+	try{
+		let searchResults = await recipeData.searchRecipe(data.searchTerm);
+		res.status(200).render('searchRecipe',{searchResults:searchResults});
+		
+	}catch(e){
+		res.status(400).render('users/error',{error: e});
+	}
+
+});
 
 
 router.get('/sortedLikes',async(req,res)=>{

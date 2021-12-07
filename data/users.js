@@ -4,6 +4,10 @@ let {ObjectId} = require('mongodb');
 const bcrypt = require("bcrypt");
 const saltRounds = 16;
 const recipeData = require('./recipes')
+//const AWS = require('aws-sdk')
+//AWS.config.update({region: 'us-east-1'});
+//let s3 = new AWS.S3({apiVersion: '2006-03-01'});
+
 
 
     const getAll = async function getAll(){
@@ -22,6 +26,13 @@ const recipeData = require('./recipes')
 
 
     const get = async function get(id){
+      /* s3.listBuckets(function(err,data){
+            if(err){
+                console.log('Error',err);
+            }
+            console.log("Success", data.Buckets);
+        })
+        */
         if(!id) throw "No id was provided";
         if(typeof id !== "string") throw "The id provided is not a string";
         let parsedId = await ObjectId(id)

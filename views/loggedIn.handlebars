@@ -1,6 +1,15 @@
 <div>
     <h1>FOODGRAM</h1>
     <h2>Hello, {{username}}</h2>
+     <form action="/recipe/searchArecipe" method="post" id="formForSearch">
+        <label>
+            <input type="text" id="searchTerm" name="searchTerm" placeholder="Search A Recipe">
+        </label>
+        <label>
+            <input type="submit" value="Submit">
+        </label>
+        <br><br>
+    </form>
     <label>
         <button type="submit" onclick= "window.location.href='users/myPage'" id="myprofile" name="myProfile">View My Profile</button>
     </label>
@@ -8,7 +17,7 @@
         <button type="button" onclick= "window.location.href='recipe/postArecipe'" id="postarecipe" name="postrecipe">Post A Recipe</button>
     </label>
     <br><br>
-    <button onclick="window.location.href='recipe/searchArecipe'">SEARCH A RECIPE</button>
+    <!--<button onclick="window.location.href='recipe/searchArecipe'">SEARCH A RECIPE</button>-->
     <br><br>
     <button onclick="window.location.href='recipe/sortByDietaryTags'">SORT BY DIETARY TAGS</button>
     <br><br>
