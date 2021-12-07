@@ -23,13 +23,13 @@ router.post('/',async(req,res)=>{
         res.status(404).render('recipe',{error:'No Description was provided'});
         return;
     }
-    console.log(recipeIdRoutes);
+   
     try{
     const postingComment = await commentData.createComment(recipeIdRoutes,subjectLineRoutes,descriptionRoutes);
     if(postingComment){
-        res.redirect('recipe/'+recipeIdRoutes);
+        res.redirect('/recipe/post/'+recipeIdRoutes);
     }else{
-        res.status(400).json({error:'User must be logged in to comment on a recipe'});
+        res.status(400).redirect('/login');
         return;
     }
     }catch(e){

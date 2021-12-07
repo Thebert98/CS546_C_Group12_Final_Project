@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const recipeData = require('../data/recipes');
+const userData = require('../data/users');
 
 //-----------------------------Needs to go into the users routes---------------------------
 
@@ -21,13 +22,17 @@ router.get('/postArecipe', async(req,res)=>{
 		res.render('postArecipe');
 		return;
 	}else{
-		res.json({error:'User must be logged in to post a recipe'});
+		res.redirect('/login');
 		return;
 	}
 })
 
 //Get a route for displaying a individual recipe(get a recipe by ID)
 router.get('/post/:id', async(req,res)=>{
+	if(!req.session.userId){
+		res.redirect('/login');
+		return;
+	}
 	let getId = req.params.id;
 	if(!getId){
 		res.status(404).render('loggedIn',{error:'No ID was provided'});
@@ -37,17 +42,33 @@ router.get('/post/:id', async(req,res)=>{
 	let b=a.comments;
 	var s;
 	var d;
+	
 	for(i=0;i<b.length;i++){
 		s=b[i].subject;
 		d=b[i].description;
 	}
-	if(a){
-		res.render('recipe',{recipeId:req.params.id,a:a,s:s,d:d,b:b});
-		return;
-	}else{
-		res.status(400).json({error:'User must be logged in to view a recipe'});
-		return;
-	}
+	let liked = 'Like';
+		if(req.session.id){
+			try{
+				
+			await userData.updateRecentlyViewed(req.session.userId,req.params.id);
+			
+			let checker = await userData.checkLikes(req.session.userId,req.params.id)
+			
+			if(checker)
+			{
+				liked = 'Unlike';
+			}
+			if(a){
+				res.render('recipe',{recipeId:req.params.id,a:a,s:s,d:d,b:b,likedStatus:liked});
+				return;
+			}
+			}catch(e){
+				res.status(400).render('users/error',{error:e});
+				return;
+			}
+			
+		}
 });
 
 //Route to post on postArecipe form
@@ -71,13 +92,21 @@ router.post('/postArecipe',async(req,res)=>{
 	let regexR = /[^0-9a-z]/gi;
 	if(recipeNameRoutes.match(regexR)){
 		res.status(404).render('postArecipe',{error:'Recipe Name cannot have special characters'});
+		return;
 	}
 	const postTime = await recipeData.create(recipeNameRoutes,recipePictureRoutes,recipeDescriptionRoutes,ingredientsRoutes,preppingDirectionsRoutes,cookingDirectionsRoutes,cuisineTypeRoutes,dietaryTagsRoutes);
 	if(postTime){
-		res.redirect('/loggedIn');
-		return;
+		try{
+			await userData.updateRecipes(req.session.userId,postTime._id);
+			res.redirect('/loggedin');
+			return;
+		}catch(e){
+			res.status(400).render('users/error',{error:e});
+			return;
+		}
+		
 	}else{
-		res.json({error:'user is not logged in'})
+		res.redirect('/login')
 		return;
 	}
 })
@@ -149,6 +178,78 @@ router.get('/searchArecipe',async(req,res)=>{
 
 //Route to post on /searchArecipe(TODO)
 
+
+router.get('/sortedLikes',async(req,res)=>{
+	if(req.session.user){
+		res.render('sortByLikes');
+		return;
+	}else{
+		res.status(400).json({error:'User must be logged in to sort a recipe by cuisine'})
+	}
+})
+
+
+
+router.post('/like', async(req,res)=>{
+	if(!req.session.id){
+		res.redirect('login');
+		return;
+	}
+	
+	if(!req.body){
+		res.status(400).render('users/error',{error: "No like status was provided"})
+         return;
+     }
+	 let data = req.body;
+	 if(!data.likeStatus){
+		res.status(400).render('users/error',{error: "No like status was provided"})
+		return;
+	}
+	
+	if(!data.recipeId){
+		res.status(400).render('users/error',{error: "No recipeID was provided"})
+		return;
+	}
+	 let userLikeStatus = await userData.checkLikes(req.session.userId,data.recipeId)
+	 if(data.likeStatus==='Like'){
+		 if(!userLikeStatus){
+		try{
+			 await recipeData.updateLikers(data.recipeId,req.session.userId);
+			 res.redirect('/recipe/post/' + data.recipeId)
+			 return;
+		 }catch(e){
+			res.status(400).render('users/error',{error:e})
+			return;
+		 }
+		 }
+	 else{
+		res.status(400).render('users/error',{error: "User already liked this post"})
+		return;
+	 }
+	}
+	else if(data.likeStatus=== 'Unlike'){
+		if(userLikeStatus){
+			try{
+				 await recipeData.removeLikers(data.recipeId,req.session.userId);
+				 
+				 res.redirect('/recipe/post/' + data.recipeId)
+				 return;
+			 }catch(e){
+				res.status(400).render('users/error',{error:e})
+				return;
+			 }
+			 }
+		 else{
+			res.status(400).render('users/error',{error: "User has not liked this post"})
+			return;
+		 }
+	}
+	else{
+		res.status(400).render('users/error',{error: "Invalid input"})
+		return;
+	}
+	 
+})
 
 
 module.exports = router;
