@@ -3,6 +3,7 @@ let { ObjectId } = require('mongodb');
 // const { all } = require('../routes/recipes');
 const recipes = mongoCollections.recipes;
 
+
 //Create
 	async function create(recipeName,recipePicture,recipeDescription,ingredients,preppingDirections,cookingDirections,cuisineType,dietaryTags) 
 		{
@@ -49,7 +50,8 @@ const recipes = mongoCollections.recipes;
 			cookingDirections: cookingDirections,
 			cuisineType: cuisineType,
 			comments:[],
-			likes:0,
+			likers:[],
+			likes: 0,
 			dietaryTags:dietaryTags
 		};
 		const insertRecipe = await recipeCollection.insertOne(newRecipe);
@@ -57,6 +59,7 @@ const recipes = mongoCollections.recipes;
 			throw `Error while adding ${newRecipe}`;
 		}
 		let recipeId = insertRecipe.insertedId;
+		
 		recipeId = recipeId.toString();
 		return await get(recipeId);
 	}
@@ -173,6 +176,100 @@ async function dietaryTagsSort(dtags){
 }
 
 
+async function likeSort(){
+	
+	
+	const likeSort = await recipes();
+	let mySort ={likes: -1}
+	const sortLikes = await likeSort.find().sort(mySort).toArray();
+	
+	
+	return sortLikes;
+}
+
+
+async function updateLikers(id,userId){
+	if(!id) throw "No id was provided";
+	if(typeof id !== "string") throw "The id provided is not a string";
+	if(!userId)throw "No userId provided";
+	if(typeof userId !="string") throw "The userId provided is not valid";
+	
+	let userData = require('./users')
+	let recipe = await get(id);
+	if(!recipe)throw 'recipe not found';
+	
+	let user = await userData.get(userId);
+	
+	let included = false;
+	for(let i = 0;i<recipe.likers.length;i++){
+		if(user._id === recipe.likers[i]._id)included =true;
+	}
+	
+	if(included)throw 'this user has liked this post already';
+	recipe.likers.push(user);
+	recipe.likes = recipe.likers.length;
+	
+	
+	
+	const recipeCollection = await recipes();
+	let parsedId = ObjectId(id);
+	recipe._id = parsedId;
+	const updatedInfo = await recipeCollection.updateOne(
+		{_id: parsedId},
+		{$set: recipe}
+		);
+	if (updatedInfo.modifedCount === 0){
+		throw "Could not update recipe successfully";
+	} 
+	await userData.updateLikes(userId,id);
+	return await this.get(id);
+
+}
+
+async function removeLikers(id,userId){
+if(!id) throw "No id was provided";
+if(typeof id !== "string") throw "The id provided is not a string";
+if(!userId)throw "No userId provided";
+if(typeof userId !="string") throw "The userId provided is not valid";
+
+
+let userData = require('./users')
+	let recipe = await get(id);
+	if(!recipe)throw 'recipe not found';
+	
+	let user = await userData.get(userId)
+	
+	let included = false;
+	let pos = 0;
+	for(let i = 0;i<recipe.likers.length;i++){
+		if(user._id === recipe.likers[i]._id){
+			included = true;
+			pos = i;
+		}
+	}
+	
+	if(!included)throw 'this user has not liked this post '
+	
+
+recipe.likers.splice(pos,1);
+recipe.likes = recipe.likers.length;
+
+
+
+const recipeCollection = await recipes();
+	let parsedId = ObjectId(id);
+	recipe._id = parsedId;
+	const updatedInfo = await recipeCollection.updateOne(
+		{_id: parsedId},
+		{$set: recipe}
+		);
+	if (updatedInfo.modifedCount === 0){
+		throw "Could not update recipe successfully";
+	} 
+await userData.removeLikes(userId,id);
+return await this.get(id);
+
+}
 
 	module.exports={
 		create,
@@ -180,5 +277,8 @@ async function dietaryTagsSort(dtags){
 		get,
 		searchRecipe,
 		cuisineSort,
-		dietaryTagsSort
+		dietaryTagsSort,
+		updateLikers,
+		removeLikers,
+		likeSort
 	}
