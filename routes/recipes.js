@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const recipeData = require('../data/recipes');
 const userData = require('../data/users');
-
+let { ObjectId } = require('mongodb');
 //-----------------------------Needs to go into the users routes---------------------------
 
 // router.get('/myProfile', async(req,res)=>{
@@ -33,11 +33,15 @@ router.get('/post/:id', async(req,res)=>{
 		res.redirect('/login');
 		return;
 	}
-	let getId = req.params.id;
-	if(!getId){
-		res.status(404).render('loggedIn',{error:'No ID was provided'});
+	if(!req.params.id){
+		res.status(400).render('users/error',{error: "you must provide an id"})
 		return;
 	}
+	if(!ObjectId.isValid(req.params.id)){
+	   res.status(400).render('users/error',{error: "you must provide an id"})
+	   return;
+   }
+   let getId = req.params.id;
 	const a = await recipeData.get(getId);
 	let b=a.comments;
 	var s;
@@ -100,7 +104,7 @@ router.post('/postArecipe',async(req,res)=>{
 		res.status(404).render('postArecipe',{error:'Recipe Name cannot have special characters'});
 		return;
 	}
-	const postTime = await recipeData.create(recipeNameRoutes,recipePictureRoutes,recipeDescriptionRoutes,ingredientsRoutes,preppingDirectionsRoutes,cookingDirectionsRoutes,cuisineTypeRoutes,dietaryTagsRoutes);
+	const postTime = await recipeData.create(req.session.userId,recipeNameRoutes,recipePictureRoutes,recipeDescriptionRoutes,ingredientsRoutes,preppingDirectionsRoutes,cookingDirectionsRoutes,cuisineTypeRoutes,dietaryTagsRoutes);
 	if(postTime){
 		try{
 			await userData.updateRecipes(req.session.userId,postTime._id);
@@ -119,6 +123,10 @@ router.post('/postArecipe',async(req,res)=>{
 
 //Route to post term for sorting by cuisine
 router.post('/sortedCuisine',async(req,res)=>{
+	if(!req.session.userId){
+		res.redirect('/login');
+		return;
+	}
 	let x = req.body.cuisines;
 	if(!x){
 		res.status(404).render('sortByCuisines',{error:'No Parameter was provided'});
@@ -136,27 +144,34 @@ router.post('/sortedCuisine',async(req,res)=>{
 
 //route to render the sortByCuisines
 router.get('/sortedCuisine',async(req,res)=>{
-	if(req.session.user){
+	if(!req.session.userId){
+		res.redirect('/login');
+		return;
+	}
+	else{
 		res.render('sortByCuisines');
 		return;
-	}else{
-		res.status(400).json({error:'User must be logged in to sort a recipe by cuisine'})
 	}
 })
 
 //route to render the sortByDietaryTags
 router.get('/sortByDietaryTags',async(req,res)=>{
-	if(req.session.user){
-		res.render('sortedDietaryTags');
+	if(!req.session.userId){
+		res.redirect('/login');
 		return;
-	}else{
-		res.status(400).json({error:'User must be logged in to sort by dietary tags'});
+	}
+	else{
+		res.render('sortedDietaryTags');
 		return;
 	}
 });
 
 //route to post data to the form to sort recipes by dietary tags
 router.post('/sortByDietaryTags',async(req,res)=>{
+	if(!req.session.userId){
+		res.redirect('/login');
+		return;
+	}
 	let y = req.body.dietarytags;
 	if(!y){
 		res.status(404).render('sortedDietaryTags',{error:'No Input was provided'});
@@ -174,11 +189,13 @@ router.post('/sortByDietaryTags',async(req,res)=>{
 
 //route to get view for Search A recipe
 router.get('/searchArecipe',async(req,res)=>{
-	if(req.session.user){
+	if(!req.session.userId){
+		res.redirect('/login');
+		return;
+	}
+	else{
 		res.render('searchRecipe');
 		return;
-	}else{
-		res.status(400).json({error:'User must be logged to search a recipe'});
 	}
 });
 
@@ -221,11 +238,13 @@ router.post('/searchArecipe', async (req,res)=>{
 
 
 router.get('/sortedLikes',async(req,res)=>{
-	if(req.session.user){
+	if(!req.session.userId){
+		res.redirect('/login');
+		return;
+	}
+	else{
 		res.render('sortByLikes');
 		return;
-	}else{
-		res.status(400).json({error:'User must be logged in to sort a recipe by cuisine'})
 	}
 })
 

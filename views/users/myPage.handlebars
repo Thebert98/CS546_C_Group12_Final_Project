@@ -23,7 +23,7 @@
         <h1>{{user.username}}</h1>
         <br>
         <br>
-        <img alt='{{user.username}} profile picture' src='images/{{user.profilepicture}}' />
+        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
@@ -45,10 +45,9 @@
     </div>
     <div id='likes' hidden>
         <h1>{{user.username}}</h1>
-        
         <br>
         <br>
-        <img alt='{{user.username}} profile picture' src='images/{{user.profilepicture}}' />
+        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
@@ -87,6 +86,7 @@
         <input type="submit" id='cancel' name='cancel' value="Cancel" />
         
     </div>
+    <a href="/loggedIn">Back to Feed</a>
 </body>
 
 <script>

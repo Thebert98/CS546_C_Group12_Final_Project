@@ -4,6 +4,7 @@ const userData = require('../data/users')
 const { checkUser, createUser } = require('../data/users');
 const bcrypt = require("bcrypt");
 const saltRounds = 16;
+let { ObjectId } = require('mongodb');
 
 /*router.get('/', async (req, res) => {
     let listOfUsers = [];
@@ -27,18 +28,26 @@ const saltRounds = 16;
  router.get('/profile/:id', async (req, res) => {
     if(!req.session.user){
         res.redirect( '/login');
+        return;
      }
     if(!req.params.id){
          res.status(400).render('users/error',{error: "you must provide an id"})
          return;
      }
+     if(!ObjectId.isValid(req.params.id)){
+        res.status(400).render('users/error',{error: "you must provide an id"})
+        return;
+    }
+
      let sameUser = req.params.id == req.session.userId
      if(sameUser){
         try {
         const user = await userData.get(req.params.id);
         res.status(200).render('users/myPage',{user: user});
+        return;
         } catch (e) {
         res.status(404).render('users/error',{ message: 'User not found' });
+        return;
         
         }
     }
@@ -46,8 +55,10 @@ const saltRounds = 16;
         try {
             const user = await userData.get(req.params.id);
             res.status(200).render('users/userpage',{user: user });
+            return;
             } catch (e) {
             res.status(404).render('users/error',{ error: e });
+            return;
             
             }
     }
@@ -58,6 +69,14 @@ const saltRounds = 16;
          res.redirect('/login');
          return;
      }
+     if(!req.params.id){
+        res.status(400).render('users/error',{error: "you must provide an id"})
+        return;
+    }
+    if(!ObjectId.isValid(req.params.id)){
+       res.status(400).render('users/error',{error: "you must provide an id"})
+       return;
+   }
      if(req.session.userId !== req.params.id){
          res.status(400).render('users/errorEdit',{error:'You cannot update the profile of other users'})
          return;

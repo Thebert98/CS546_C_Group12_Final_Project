@@ -16,8 +16,9 @@
     <h2 class='error'>{{error}}</h2>
     <div id="profile">
         <h1>{{user.username}}</h1>
-        
-        <img alt='{{user.username}} profile picture' src='images/{{user.profilepicture}}' />
+        <br>
+        <br>
+        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
@@ -41,7 +42,7 @@
         <h1>{{user.username}}</h1>
         <br>
         <br>
-        <img alt='{{user.username}} profile picture' src='images/{{user.profilepicture}}' />
+        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
@@ -49,15 +50,16 @@
         <br>
         <h3>Liked Recipes:</h3>
         <ul>
-                {{#each user.Likes}}
+                {{#each user.likes}}
                     <li>
-                    <a href="/recipes/{{id}}">{{name}}</a>
+                    <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
                     </li> 
                     {{else}}
                     <p class="not-found">We're sorry, but this user has not liked any recipes.</p>
                 {{/each}}     
         </ul>
     </div>
+    <a href="/loggedIn">Back to Feed</a>
 </body>
 
 <script>

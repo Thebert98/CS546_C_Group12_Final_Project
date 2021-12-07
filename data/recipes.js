@@ -5,71 +5,85 @@ const recipes = mongoCollections.recipes;
 
 
 //Create
-	async function create(recipeName,recipePicture,recipeDescription,ingredients,preppingDirections,cookingDirections,cuisineType,dietaryTags) 
-		{
-		if (!recipeName || typeof recipeName != 'string')
-			throw 'A recipeName of type string must be provided for your recipe recipeName';
-		if (!recipePicture || typeof recipePicture != 'string')
-			throw 'A recipeName of type string must be provided for your recipe recipeName';
-		if (!recipeDescription || typeof recipeDescription != 'string') {
-			throw 'A phonenumber of type string must be provided for your recipe phonenumber';
-		}
-		if(typeof ingredients != 'string'){
-			throw 'Ingrediants must be a string'
-		}
-		if(typeof preppingDirections != 'string'){
-			throw 'Prepping Directions must be a string'
-		}
-		if(typeof cookingDirections != 'string'){
-			throw 'Cooking Directions must be a string'
-		}
-		if(typeof dietaryTags!='string'){
-			throw 'Cooking directions must be a string'
-		}
-		if (!ingredients) {
-			throw 'kindly enter ingredients';
-		}
-		if (!preppingDirections) {
-			throw 'kindly enter preppingDirections';
-		}
-		if (!cookingDirections) {
-			throw 'kindly enter cookingDirections';
-		}
-		if (!cuisineType || typeof cuisineType != 'string') {
-			throw 'kindly enter cusine and it must be string';
-		}
-		cuisineType=cuisineType.toLowerCase();
-		const recipeCollection = await recipes();
-		likes = 0;
-		const newRecipe = {
-			recipeName: recipeName,
-			recipePicture: recipePicture,
-			recipeDescription: recipeDescription,
-			ingredients: ingredients,
-			preppingDirections: preppingDirections,
-			cookingDirections: cookingDirections,
-			cuisineType: cuisineType,
-			comments:[],
-			likers:[],
-			likes: 0,
-			dietaryTags:dietaryTags
-		};
-		const insertRecipe = await recipeCollection.insertOne(newRecipe);
-		if (insertRecipe.insertedCount === 0) {
-			throw `Error while adding ${newRecipe}`;
-		}
-		let recipeId = insertRecipe.insertedId;
-		
-		recipeId = recipeId.toString();
-		return await get(recipeId);
+async function create(posterId,recipeName,recipePicture,recipeDescription,ingredients,preppingDirections,cookingDirections,cuisineType,dietaryTags) 
+{
+	if(!posterId) throw 'No posterId was provided'
+	if(typeof posterId !== 'string') throw 'posterId provided is not a string';
+	if (!recipeName || typeof recipeName != 'string')
+		throw 'A recipeName of type string must be provided for your recipe recipeName';
+	if (!recipePicture || typeof recipePicture != 'string')
+		throw 'A recipeName of type string must be provided for your recipe recipeName';
+	if (!recipeDescription || typeof recipeDescription != 'string') {
+		throw 'A phonenumber of type string must be provided for your recipe phonenumber';
 	}
+	if(typeof ingredients != 'string'){
+		throw 'Ingrediants must be a string'
+	}
+	if(typeof preppingDirections != 'string'){
+		throw 'Prepping Directions must be a string'
+	}
+	if(typeof cookingDirections != 'string'){
+		throw 'Cooking Directions must be a string'
+	}
+	if(typeof dietaryTags!='string'){
+		throw 'Cooking directions must be a string'
+	}
+	if (!ingredients) {
+		throw 'kindly enter ingredients';
+	}
+	if (!preppingDirections) {
+		throw 'kindly enter preppingDirections';
+	}
+	if (!cookingDirections) {
+		throw 'kindly enter cookingDirections';
+	}
+	if (!cuisineType || typeof cuisineType != 'string') {
+		throw 'kindly enter cusine and it must be string';
+	}
+	let userData = require('./users')
+	try{
+		let user = await userData.get(posterId)
+		let username = user.username;
+		console.log(user);
+		cuisineType=cuisineType.toLowerCase();
+	const recipeCollection = await recipes();
+	likes = 0;
+	const newRecipe = {
+		posterId: posterId,
+		posterUsername: username,
+		recipeName: recipeName,
+		recipePicture: recipePicture,
+		recipeDescription: recipeDescription,
+		ingredients: ingredients,
+		preppingDirections: preppingDirections,
+		cookingDirections: cookingDirections,
+		cuisineType: cuisineType,
+		comments:[],
+		likers:[],
+		likes: 0,
+		dietaryTags:dietaryTags
+	};
+	const insertRecipe = await recipeCollection.insertOne(newRecipe);
+	if (insertRecipe.insertedCount === 0) {
+		throw `Error while adding ${newRecipe}`;
+	}
+	let recipeId = insertRecipe.insertedId;
+
+	recipeId = recipeId.toString();
+	return await get(recipeId);
+	}catch(e){
+	throw e;
+
+	}
+}
+
 
 
 //Get All
 	async function getAll() {
 		const recipeCollection = await recipes();
 		const allrecipe = await recipeCollection.find({}).toArray();
-		return allrecipe;
+		return allrecipe.reverse();
 	}
 	// getAll();
 
@@ -112,7 +126,7 @@ async function searchRecipe(searchTerm){
 	const searchingForRecipe = await recipes();
 	await searchingForRecipe.createIndex({recipeName: "text"});
 	const recipeSearch = await searchingForRecipe.find({$text:{$search: searchTerm}}).toArray();
-	console.log(recipeSearch);
+	
 
 	/*var retArray = [];
 	var a;
@@ -128,7 +142,7 @@ async function searchRecipe(searchTerm){
 		retArray.push(retObj);
 	}
 	*/
-	return recipeSearch;
+	return recipeSearch.reverse();
 }
 
 //Sort by Cuisine
@@ -154,7 +168,7 @@ async function cuisineSort(cuisine){
 			pushArr.push(cuisineSortAll[j]);
 		}
 	}
-	return pushArr;
+	return pushArr.reverse();
 }
 
 //Sort by Dietary Tags
@@ -179,7 +193,7 @@ async function dietaryTagsSort(dtags){
 			retArr1.push(sortDtags[k]);
 		}
 	}
-	return retArr1;
+	return retArr1.reverse();
 }
 
 

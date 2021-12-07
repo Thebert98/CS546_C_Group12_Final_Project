@@ -9,7 +9,7 @@ const users = mongoCollections.users;
 
 
 router.get('/loggedIn',async(req,res)=>{
-        if(!req.session.user){
+        if(!req.session.userId){
             res.redirect('/login')
             return;
         }
