@@ -10,7 +10,8 @@ Main Contributors.
 
 ## Introduction
 
-This is a Web Application for end to end booking of tickets for events around a particular location or area. Events such as Music Concerts, Sporting Events, Movies, Stand-up Comedies. User is supposed to log in and then select their location or the location where they wish to attend the event. Once logged in they select they type of event they plan to attend(Movie, Sport, Concert etc), once selected, list of the selected event appears around the location that the user selected and the user can choose their tickets according their requirements.
+
+The purpose of this application is to allow its users to share their favorite recipes with other users via a social media-like format. The users will be able to personalize their user page and like and comment on other users’ recipe posts. Users will also be able to sort recipes by likes, cuisine origin, and date posted.
 
 ## Core features
 - **User Profile**:- Users will be able to personalize their page with a profile picture, favorite recipe, and a bio. Posts by that user will be visible when viewing their profile page
