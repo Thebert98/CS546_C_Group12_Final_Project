@@ -1,4 +1,3 @@
-<head>
 	<header>
 		
 		<title>{{user.username}} Edit</title>
@@ -6,25 +5,23 @@
     
     <meta charset="UTF-8">
     
-   <link rel='stylesheet' href='public/css/style.css'/>
-</head>
-<body>
+<link rel='stylesheet' href='public/css/style.css'/>
     <h2 class='error'>{{error}}</h2>
-    <form method="POST" action="/edit">
-    
+    <form method="POST" action="/edit" id="formForEditUser">
         <label for="Profile Picture" >Profile Picture:</label><br>
         <input id="image" type="file" name="profilePicture" placeholder="Photo" required="" capture>
         <label for="Bio:" >Bio:</label><br>
         <input type="text" id="bio" name="bio" placeholder="Tell us about yourself..." ><br>
         <label for="password" >Favorite Recipe:</label><br>
         <input type="text" id="favoriteRecipe" name="favoriteRecipe" placeholder="What is your favorite recipe..."><br>
-        <input type="submit" value="Submit" />
-           
-        
+        <input type="submit" value="Submit" >
     </form>
-
-   <form action="/users/mypage" id="cancel" method="post"  >
+        <script src="/public/js/ClientSideUpdateProfile.js"></script>
+    <div id="errorcheck">
+        {{#if error}}
+        <p>{{error}}</p>
+        {{/if}}
+    </div>
+    <form action="/users/mypage" id="cancel" method="post"  >
         <input type="submit" value="Cancel" />
     </form>
-    
-</body>

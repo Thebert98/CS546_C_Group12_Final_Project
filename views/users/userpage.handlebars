@@ -1,18 +1,7 @@
-<head>
-	<header>
-		
-		<title>{{user.username}} Profile Page</title>
-	</header>
-    
-    <meta charset="UTF-8">
-    
+    <title>{{user.username}} Profile Page</title>
     <link rel='stylesheet' href='public/css/style.css'/>
-    
     <button id='likesButton' >Likes</button>
     <button id='profileButton' hidden>Profile</button>
-    
-</head>
-<body>
     <h2 class='error'>{{error}}</h2>
     <div id="profile">
         <h1>{{user.username}}</h1>
@@ -60,8 +49,6 @@
         </ul>
     </div>
     <a href="/loggedIn">Back to Feed</a>
-</body>
-
 <script>
         let profileButton = document.getElementById('profileButton')
         let likesButton = document.getElementById('likesButton')
@@ -80,5 +67,4 @@
             profileButton.hidden = true;
             likes.hidden = true;
         })          
-        
-    </script>
+</script>

@@ -1,7 +1,7 @@
 (function () {
 
     const myForm = document.getElementById("formForSearch");
-    let searchRecipeInput = document.getElementById("searchrecipe");
+    let searchRecipeInput = document.getElementById("searchTerm");
     let errorDiv = document.getElementById('errorcheck');
     if (myForm) {
     myForm.addEventListener("submit", (event) => {

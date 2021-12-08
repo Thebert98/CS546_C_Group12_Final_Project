@@ -1,6 +1,6 @@
 (function () {
 
-    const myForm = document.getElementById("comm");
+    const myForm = document.getElementById("formForComment");
     let subjectInput = document.getElementById("subject");
     let descriptionInput = document.getElementById("description");
     let errorDiv = document.getElementById('errorcheck');

@@ -208,15 +208,12 @@ router.post('/searchArecipe', async (req,res)=>{
 	if(!req.body){
 		res.status(400).render('users/error',{error: "No searchTerm was provided"});
 		return;
-
 	}
 	let data = req.body;
 	if(!data.searchTerm){
 		res.status(400).render('users/error',{error: "No searchTerm was provided"});
 		return;
 	}
-	console.log(data.searchTerm);
-	console.log(typeof data.searchTerm);
 	if(typeof data.searchTerm !='string'){
 		res.status(400).render('users/error',{error: "searchTerm provided is not a string"});
 		return;

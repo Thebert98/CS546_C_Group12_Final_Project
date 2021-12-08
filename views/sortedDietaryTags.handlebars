@@ -1,6 +1,6 @@
 <div>
 <form action="/recipe/sortByDietaryTags" method="post">
-    <label for="DietaryTags">Sort by Dietary Tag</label>
+    <label >Sort by Dietary Tag</label>
     <br><br>
     <select id="dietarytags" name="dietarytags">
         <option value="vegan">Vegan</option>
@@ -20,9 +20,9 @@
 <div>
 {{#each sortDT}}
 <ul>
-    <form method="post" value={{this._id}}>
+    {{!-- <form method="post" value={{this._id}}> --}}
         <li><a href="/recipe/post/{{this._id}}">{{recipeName}}</a></li>
-    </form>
+    {{!-- </form> --}}
 </ul>
 {{/each}}
 </div>

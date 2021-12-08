@@ -2,7 +2,7 @@
 <div>
     <h2>Poster:<a href='/users/profile/{{a.posterId}}'> {{a.posterUsername}}</a></h2>
     <h2>{{a.recipeName}}</h2>
-    <img alt='{{a._id}} recipepicture'src='/public/images/{{a.recipePicture}}'/>
+    <img alt='{{a._id}} recipepicture' src='/public/images/{{a.recipePicture}}'/>
     <p id="m">{{a.recipeDescription}}</p>
     <p>Ingredients: {{a.ingredients}}</p>
     <br>
@@ -11,23 +11,23 @@
     <p>Cooking Directions: {{a.cookingDirections}}</p>
     <br>
     <p>Likes: {{a.likes}}</p>
-    <form action='/recipe/like' method='POST'id='likeForm'>
-    <label for='like'>
-    <button type='submit'id='likeStatus' name='likeStatus' value='{{likedStatus}}'>{{likedStatus}}</button>
+    <form action='/recipe/like' method='POST' id='likeForm'>
+    <label for='likeStatus'>
+    <button type='submit' id='likeStatus' name='likeStatus' value='{{likedStatus}}'>{{likedStatus}}</button>
     </label>
     <input type="hidden" name="recipeId" id="recipeId" value="{{a._id}}">
     </form>
     <h4>Comments:</h4>
     {{#each b}}
     <ul>
-        <h5>{{subject}}</h5>
-        <p>{{description}}</p>
+        <li><h4>Subject : {{subject}}</h4>
+        <h5>Description : {{description}}</h5>></li>
     </ul>
     {{/each}}
 </div>
 <div>
     <form id="formForComment" method="post" action="/recipe/comments">Comment On This Recipe
-    <input type="hidden" name="recipeId" id="recipeId" value="{{a._id}}">
+    <input type="hidden" name="recipeId" id="recipeid" value="{{a._id}}">
     <br><br>
     <input type="text" placeholder="Enter Subject Line" id="subject" name="subject">
     <br><br>
@@ -36,13 +36,14 @@
     <button type="submit" value="Submit">Submit</button>
     </form>
     <br><br>
-    <a href="/loggedIn">Back to Feed</a>
     <script src="/public/js/clientSidePostAcomment.js"></script>
+    <div id="errorcheck">
+        {{#if error}}
+        <p>{{error}}</p>
+        {{/if}}
+    </div>
+    <a href="/loggedIn">Back to Feed</a>
 </div>
-<div id="errorcheck">
-    {{#if error}}
-    <p>{{error}}</p>
-    {{/if}}
-</div>
+
 
 

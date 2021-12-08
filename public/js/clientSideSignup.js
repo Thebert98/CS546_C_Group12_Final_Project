@@ -7,8 +7,6 @@
     let lastNameInput = document.getElementById("lastname");
     let phoneNumberInput = document.getElementById("phonenumber");
 
-//    let phoneNumberInput = document.getElementById("phonenumber");
-
     let errorDiv = document.getElementById('errorcheck');
     if (myForm) {
     myForm.addEventListener("submit", (event) => {
@@ -18,7 +16,7 @@
             valid = false
             usernameInput.value = ''
             errorDiv.hidden = false;
-            errorDiv.innerHTML = 'Username must be provided'
+            errorDiv.innerHTML = 'Username not provided'
             return
         }
         else{
@@ -30,7 +28,7 @@
             valid = false
             passwordInput.value = ''
             errorDiv.hidden = false
-            errorDiv.innerHTML = 'Password must be provided'
+            errorDiv.innerHTML = 'Password not provided'
             return
         }else{
             valid = true
@@ -41,7 +39,7 @@
             valid = false
             firstNameInput.value = ''
             errorDiv.hidden = false
-            errorDiv.innerHTML = 'First Name must be provided'
+            errorDiv.innerHTML = 'First Name not provided'
             return
         }else{
             valid = true
@@ -52,7 +50,7 @@
             valid = false
             lastNameInput.value = ''
             errorDiv.hidden = false
-            errorDiv.innerHTML = 'Last Name must be provided'
+            errorDiv.innerHTML = 'Last Name not provided'
             return
         }else{
             valid = true

@@ -1,7 +1,7 @@
 <div>
     <h1>FOODGRAM</h1>
     <h2>Hello, {{username}}</h2>
-     <form action="/recipe/searchArecipe" method="post" id="formForSearch">
+    <form action="/recipe/searchArecipe" method="post" id="formForSearch">
         <label>
             <input type="text" id="searchTerm" name="searchTerm" placeholder="Search A Recipe">
         </label>
@@ -10,21 +10,25 @@
         </label>
         <br><br>
     </form>
+    <div id="errorcheck">
+        {{#if error}}
+        <p>{{error}}</p>
+        {{/if}}
+    </div>
     <label>
-        <button type="submit" onclick= "window.location.href='users/myPage'" id="myprofile" name="myProfile">View My Profile</button>
+        <button type="submit" onclick= "window.location.href='users/myPage'" id="myprofile" name="myProfile">VIEW MY PROFILE</button>
     </label>
     <label>
-        <button type="button" onclick= "window.location.href='recipe/postArecipe'" id="postarecipe" name="postrecipe">Post A Recipe</button>
+        <button type="button" onclick= "window.location.href='recipe/postArecipe'" id="postarecipe" name="postrecipe">POST A RECIPE</button>
     </label>
     <br><br>
-    <!--<button onclick="window.location.href='recipe/searchArecipe'">SEARCH A RECIPE</button>-->
     <br><br>
     <button onclick="window.location.href='recipe/sortByDietaryTags'">SORT BY DIETARY TAGS</button>
     <br><br>
     <button onclick="window.location.href='recipe/sortedCuisine'">SORT BY CUISINE</button>
     <br><br>
     <button id='sortLikesButton'>SORT BY LIKES</button>
-    <button  id='defaultSortButton'hidden>SORT BY POST DATE</button>
+    <button  id='defaultSortButton' hidden>SORT BY POST DATE</button>
     <div id='defaultList'>
     {{#if allRecipes}}
     {{#each allRecipes}}
@@ -54,7 +58,7 @@
     <a href="/logout">Log Out</a>
 </div>
 <script src="/public/js/clientSideSearchArecipe.js"></script>
-<script>
+{{!-- <script>
         let likesButton = document.getElementById('sortLikesButton')
         let defaultButton = document.getElementById('defaultSortButton')
         let likeList = document.getElementById('likeSort')
@@ -71,4 +75,4 @@
             defaultButton.hidden = true;
             likeList.hidden = true;
         })  
-</script>
+</script> --}}
