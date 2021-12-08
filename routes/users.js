@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 16;
 let { ObjectId } = require('mongodb');
 let path = require('path')
+let xss = require('xss')
 const multer= require('multer')
 const storage = multer.diskStorage({
     destination: './public/images/',
@@ -91,7 +92,7 @@ const upload = multer({
          return;
      }
 
-     req.file
+     
      const updateImage = req.file;
      const updateData = req.body;
      
@@ -100,7 +101,7 @@ const upload = multer({
         return;
     }
     try {
-        user = await userData.get(req.session.userId);
+        user = await userData.get(xss(req.session.userId));
          
        } catch (e) {
          res.status(404).render('users/errorEdit',{ message: 'User not found' });
@@ -124,7 +125,7 @@ const upload = multer({
         }
           
         try{
-            await userData.updateProfilePicture(user._id,updateImage.filename)
+            await userData.updateProfilePicture(user._id,xss(updateImage.filename))
            
        }catch(e){
            res.status(400).render('users/errorEdit',{error: e});
@@ -144,7 +145,7 @@ const upload = multer({
         }
         
         try{
-            await userData.updateBio(user._id,updateData.bio)
+            await userData.updateBio(user._id,xss(updateData.bio))
            
        }catch(e){
            res.status(400).render('users/errorEdit',{error: e});
@@ -166,7 +167,7 @@ const upload = multer({
         }
         
         try{
-            await userData.updateFavoriteRecipe(user._id,updateData.favoriteRecipe)
+            await userData.updateFavoriteRecipe(user._id,xss(updateData.favoriteRecipe))
            
        }catch(e){
            res.status(400).render('users/errorEdit',{error: e});
@@ -176,7 +177,7 @@ const upload = multer({
 
     
     try{
-    user = user = await userData.get(req.session.userId);
+    
     res.status(200).redirect('/users/myPage');
     }catch(e){
         res.status(400).render('users/error',{error: e});
@@ -223,14 +224,5 @@ router.get('/myPage' ,async (req, res) => {
         res.redirect( 'profile/' +req.session.userId);
     }
     })
-
-    router.get('/myProfile', async(req,res)=>{
-	if(req.session.user){
-		res.render('myProfile');
-		return;
-	}else{
-		res.status(400).json({error:'User must login to view their profile'});
-	}
-})
 
 module.exports = router;
