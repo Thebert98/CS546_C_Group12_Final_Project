@@ -1,18 +1,20 @@
 # CS546-C Final Project
-## _Project by group 12_    ![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master) 
+
+## _Project by group 12_ ![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)
 
 Main Contributors.
 
 - Tanaya Bhole
 - Kewal Mehta
 - Anish Malhotra
-- Timothy Heberet
+- Timothy Hebert
 
 ## Introduction
 
 This is a Web Application for end to end booking of tickets for events around a particular location or area. Events such as Music Concerts, Sporting Events, Movies, Stand-up Comedies. User is supposed to log in and then select their location or the location where they wish to attend the event. Once logged in they select they type of event they plan to attend(Movie, Sport, Concert etc), once selected, list of the selected event appears around the location that the user selected and the user can choose their tickets according their requirements.
 
 ## Core features
+
 - **User Profile**:- Users will be able to personalize their page with a profile picture, favorite recipe, and a bio. Posts by that user will be visible when viewing their profile page
 - **Landing page**:- explains the functionality and purpose of the website
 - **Sort By Likes**:- Users can choose to sort their feed by the number of likes a recipe has
