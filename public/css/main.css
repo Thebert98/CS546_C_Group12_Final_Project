@@ -22,10 +22,9 @@ header {
 	color: #fec8d8;
 	border-bottom: 1px solid #fec8d8;
 }
-
 ul {
 	list-style-type: circle;
-	color: white;
+	color: rgb(130, 186, 196);
 	font-size: 1.2rem;
 	text-shadow: 0 0 4px;
 }
