@@ -49,9 +49,15 @@
         </ul>
     </div>
     <div id='editPage' hidden>
+<<<<<<< HEAD
         <form method="POST" action="{{user._id}}/edit">
+=======
+        <h2 class='error'>{{error}}</h2>
+        <form method="POST" action="{{user._id}}/edit" enctype="multipart/form-data">
+    
+>>>>>>> 928fa1c231170a6a546f957e42c50fd84a2c0381
         <label for="profilePicture" >Profile Picture:</label>
-        <input type="file" id="profilePicture" name="profilePicture" accept="image/png, image/jpeg, image/jpg"><br>
+        <input type="file" id="profilePicture" name="profilePicture" ><br>
         <br>
         <br>
         <label for="bio" >Bio:</label>

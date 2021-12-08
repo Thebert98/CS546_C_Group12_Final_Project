@@ -5,24 +5,21 @@ const { checkUser, createUser } = require('../data/users');
 const bcrypt = require("bcrypt");
 const saltRounds = 16;
 let { ObjectId } = require('mongodb');
+let path = require('path')
+const multer= require('multer')
+const storage = multer.diskStorage({
+    destination: './public/images/',
+    filename: function(req,file,cb){
+        cb(null,file.fieldname + '-' + Date.now() +
+        path.extname(file.originalname));
+    }
+});
+const upload = multer({
+    storage: storage,
+});
 
-/*router.get('/', async (req, res) => {
-    let listOfUsers = [];
-     try {
-         let userList = await userData.getAll();
-         userList.forEach(element => {
-             let newObject = {
-                 _id: element._id,
-                 userName: element.userName
-         };
-         listOfUsers.push(newObject)
-     });
-     res.status(200).render('users/all',{listOfUsers:listOfUsers});
-   } catch (e) {
-     res.status(500).renders('users/error',{error: "e"});
-   }
- });
- */
+
+
  
  
  router.get('/profile/:id', async (req, res) => {
@@ -64,8 +61,10 @@ let { ObjectId } = require('mongodb');
     }
    });
  
-   router.post('/profile/:id/edit', async (req, res) => {
-     if(!req.session.userId){
+   router.post('/profile/:id/edit',upload.single('profilePicture'),async (req, res) => {
+    
+   
+    if(!req.session.userId){
          res.redirect('/login');
          return;
      }
@@ -82,9 +81,11 @@ let { ObjectId } = require('mongodb');
          return;
      }
 
+     console.log(req.file);
+     const updateImage = req.file;
      const updateData = req.body;
      
-     if((!updateData.profilePicture) &&(!updateData.bio)&&(!updateData.favoriteRecipe)){
+     if((!updateImage) &&(!updateData.bio)&&(!updateData.favoriteRecipe)){
         res.status(400).render('users/errorEdit',{error: "No updates were provided"})
         return;
     }
@@ -95,28 +96,31 @@ let { ObjectId } = require('mongodb');
          res.status(404).render('users/errorEdit',{ message: 'User not found' });
          return
        }
-     if(updateData.profilePicture){
-        if(typeof profilePicture !="string"){
+       
+       if(req.file){
+        
+        if(updateImage){
+        if(typeof updateImage.filename !="string"){
             res.status(400).render('users/errorEdit',{error:"The profilePicture provided is not valid"});
             return;
         }
-        if(profilePicture.length< 5){
+        if(updateImage.filename .length< 5){
             res.status(400).render('users/errorEdit',{error:"The profilePicture provided is not valid"});
             return;
         }
-        if((profilePicture.substring(profilePicture.length -5 ).toLowerCase() !== ".jpeg")&&(profilePicture.substring(profilePicture.length -4 ).toLowerCase() !== ".jpg")&&(profilePicture.substring(profilePicture.length -4 ).toLowerCase() !== ".png")){
+        if((updateImage.filename.substring(updateImage.filename .length -5 ).toLowerCase() !== ".jpeg")&&(updateImage.filename.substring(updateImage.filename.length -4 ).toLowerCase() !== ".jpg")&&(updateImage.filename.substring(updateImage.filename.length -4 ).toLowerCase() !== ".png")){
             res.status(400).render('users/errorEdit',{error:"The profilePicture provided is not a jpeg, jpg, or png file"});
             return;
         }
-        
-        
+          
         try{
-            await userData.updateProfilePicture(user._id,updataData.profilePicture)
+            await userData.updateProfilePicture(user._id,updateImage.filename)
            
        }catch(e){
            res.status(400).render('users/errorEdit',{error: e});
            return
        }
+    }
      }
      if(updateData.bio){
         
