@@ -1,6 +1,7 @@
     <link rel='stylesheet' href='public/css/style.css'/>
     <button id='likesButton' >Likes</button>
     <button id='profileButton' hidden>Profile</button>
+    <button id='recentsButton'>Recents</button>
     <div id="profile">
         <label for="edit">Edit:</label><br>
         <button id="edit" name="edit">Edit Profile</button>
@@ -49,13 +50,11 @@
         </ul>
     </div>
     <div id='editPage' hidden>
-<<<<<<< HEAD
-        <form method="POST" action="{{user._id}}/edit">
-=======
+
         <h2 class='error'>{{error}}</h2>
         <form method="POST" action="{{user._id}}/edit" enctype="multipart/form-data">
     
->>>>>>> 928fa1c231170a6a546f957e42c50fd84a2c0381
+
         <label for="profilePicture" >Profile Picture:</label>
         <input type="file" id="profilePicture" name="profilePicture" ><br>
         <br>
@@ -73,6 +72,27 @@
         <input type="submit" id='cancel' name='cancel' value="Cancel" />
         
     </div>
+    <div id='recents' hidden>
+        <h1>{{user.username}}</h1>
+        <br>
+        <br>
+        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
+        <br>
+        <br>
+        <h2> {{user.firstName}}  {{user.lastName}}</h2>
+        <br>
+        <br>
+        <h3>Recently Viewed Recipes:</h3>
+        <ul>
+                {{#each user.recentlyViewedRecipes}}
+                    <li>
+                    <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
+                    </li> 
+                    {{else}}
+                    <p class="not-found">You have not recently viewed any recipes.</p>
+                {{/each}}     
+        </ul>
+    </div>
     <a href="/loggedIn">Back to Feed</a>
 {{!-- <script src="/public/js/ClientSideUpdateProfile.js"></script> --}}
 <script>
@@ -83,6 +103,8 @@
         let editButton = document.getElementById('edit')
         let editProfile = document.getElementById('editPage')   
         let cancelButton = document.getElementById('cancel')
+        let recents = document.getElementById('recents')   
+        let recentsButton = document.getElementById('recentsButton')
 
         likesButton.addEventListener('click',(event)=>{
             profile.hidden = true;
@@ -90,6 +112,8 @@
             profileButton.hidden = false;
             likes.hidden = false;
             editProfile.hidden = true;
+            recentsButton.hidden = false;
+            recents.hidden = true;
         }) 
         profileButton.addEventListener('click',(event)=>{
             profile.hidden = false;
@@ -97,6 +121,8 @@
             profileButton.hidden = true;
             likes.hidden = true;
             editProfile.hidden = true;
+            recentsButton.hidden = false;
+            recents.hidden = true;
         })
         editButton.addEventListener('click',(event)=>{
             profile.hidden = true;
@@ -104,6 +130,8 @@
             profileButton.hidden = true;
             likes.hidden = true;
             editProfile.hidden = false;
+            recentsButton.hidden = true;
+            recents.hidden = true;
             
         })          
         cancelButton.addEventListener('click',(event)=>{
@@ -112,5 +140,17 @@
             profileButton.hidden = true;
             likes.hidden = true;
             editProfile.hidden = true;
+            recentsButton.hidden = false;
+            recents.hidden = true;
         })
+        recentsButton.addEventListener('click',(event)=>{
+            profile.hidden = true;
+            likesButton.hidden = false;
+            profileButton.hidden = false;
+            likes.hidden = true;
+            editProfile.hidden = true;
+            recentsButton.hidden = true;
+            recents.hidden = false;
+        })
+
 </script>
