@@ -16,7 +16,17 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
     storage: storage,
+    fileFilter:function (req,file,cb){
+        if((path.extname(file.originalname)=='.jpeg')||(path.extname(file.originalname)=='.jpg')||(path.extname(file.originalname)=='.png')){
+            cb(null,true);
+        }
+        else{
+            cb(null,false);
+
+        }
+    }
 });
+
 
 
 
@@ -81,12 +91,12 @@ const upload = multer({
          return;
      }
 
-     console.log(req.file);
+     req.file
      const updateImage = req.file;
      const updateData = req.body;
      
      if((!updateImage) &&(!updateData.bio)&&(!updateData.favoriteRecipe)){
-        res.status(400).render('users/errorEdit',{error: "No updates were provided"})
+        res.status(400).render('users/errorEdit',{error: "No updates were provided or a non image file was provided."})
         return;
     }
     try {
