@@ -16,6 +16,19 @@ let { ObjectId } = require('mongodb');
 
 //-----------------------------------------------------------------------------------------
 
+let path = require('path')
+const multer= require('multer')
+const storage = multer.diskStorage({
+    destination: './public/images/',
+    filename: function(req,file,cb){
+        cb(null,file.fieldname + '-' + Date.now() +
+        path.extname(file.originalname));
+    }
+});
+const upload = multer({
+    storage: storage,
+});
+
 //Get a route for posting a recipe on /recipe/postArecipe
 router.get('/postArecipe', async(req,res)=>{
 	if(req.session.user){
@@ -76,9 +89,11 @@ router.get('/post/:id', async(req,res)=>{
 });
 
 //Route to post on postArecipe form
-router.post('/postArecipe',async(req,res)=>{
+router.post('/postArecipe',upload.single('avatar'),async(req,res)=>
+{
+	console.log(req.file.filename)
 	let recipeNameRoutes = req.body.recipeName;
-	let recipePictureRoutes = req.body.recipePicture;
+	let recipePictureRoutes = req.file.filename;
 	let recipeDescriptionRoutes = req.body.recipeDescription;
 	let ingredientsRoutes = req.body.ingredients;
 	let preppingDirectionsRoutes = req.body.preppingDirections;
