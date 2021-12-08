@@ -1,0 +1,51 @@
+<h2>Cooked something new? Share with our users.</h2>
+<form action="/recipe/postArecipe" method="POST" id="post-a-recipe-form">
+    <label for="recipeName">Enter a Recipe Name:</label>
+    <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName" required> 
+    <br><br>
+    <label for="avatar">Upload Recipe Picture:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" required><br>
+    <br><br>
+    <label for="recipeDescription">Enter Recipe Description:</label>
+    <textarea placeholder="Enter the Recipe description Here" id="recipeDescription" name="recipeDescription" required></textarea>
+    <br><br>
+    <label for="ingredients">Enter Ingredients:</label>
+    <textarea placeholder="Enter the Recipe Ingredients Here" id="ingredients" name="ingredients" required></textarea>
+    <br><br>
+    <label for="preppingDirections">Enter Prepping Directions:</label>
+    <textarea placeholder="Enter the Preparation Directions Here" id="preppingDirections" name="preppingDirections" required></textarea>
+    <br><br>
+    <label for="cookingDirections">Enter Cooking Recipe:</label>
+    <textarea placeholder="Enter the Cooking Directions Here" id="cookingDirections" name="cookingDirections" required></textarea>
+    <br><br>
+    <label>
+        <select id="cuisineType" name="cuisineType">
+            <option value="italian">Italian</option>
+            <option value="mexican">Mexican</option>
+            <option value="indian">Indian</option>
+            <option value="american">American</option>
+            <option value="lebanese">Lebanese</option>
+            <option value="other">Other</option>
+        </select>
+    </label>
+    <br><br>
+    <label>
+        <select id="dietaryTags" name="dietaryTags">
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="nonvegetarian">Non-Vegetarian</option>
+        </select>
+    </label>
+    <br><br>
+    <label>
+        <input type="submit" value="Submit Recipe">
+    </label>
+    <br>
+</form>
+<div id="errorcheck">
+    {{#if error}}
+    <p>{{error}}</p>
+    {{/if}}
+</div>
+<script src="/public/js/clientSidepostArecipe.js"></script>
+<a href="/loggedIn">Back to Feed</a>
