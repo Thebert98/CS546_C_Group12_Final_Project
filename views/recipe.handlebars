@@ -1,8 +1,22 @@
-<h2>Know more about this recipe</h2>
+<h1>Know more about this recipe</h1>
 <div>
+    <h2>Poster:<a href='/users/profile/{{a.posterId}}'> {{a.posterUsername}}</a></h2>
     <h2>{{a.recipeName}}</h2>
-    <p>{{a.recipePicture}}</p>
+    <img alt='{{a._id}} recipepicture'src='/public/images/{{a.recipePicture}}'/>
     <p id="m">{{a.recipeDescription}}</p>
+    <p>Ingredients: {{a.ingredients}}</p>
+    <br>
+    <p>Prepping Directions: {{a.preppingDirections}}</p>
+    <br>
+    <p>Cooking Directions: {{a.cookingDirections}}</p>
+    <br>
+    <p>Likes: {{a.likes}}</p>
+    <form action='/recipe/like' method='POST'id='likeForm'>
+    <label for='like'>
+    <button type='submit'id='likeStatus' name='likeStatus' value='{{likedStatus}}'>{{likedStatus}}</button>
+    </label>
+    <input type="hidden" name="recipeId" id="recipeId" value="{{a._id}}">
+    </form>
     <h4>Comments:</h4>
     {{#each b}}
     <ul>
@@ -13,7 +27,7 @@
 </div>
 <div>
     <form id="comm" method="post" action="/recipe/comments">Comment On This Recipe
-    <input type="hidden" name="recipeId" id="recipeId" value="{{recipeId}}">
+    <input type="hidden" name="recipeId" id="recipeId" value="{{a._id}}">
     <br><br>
     <input type="text" placeholder="Enter Subject Line" id="subject" name="subject">
     <br><br>
@@ -29,3 +43,4 @@
     <p>{{error}}</p>
     {{/if}}
 </div>
+

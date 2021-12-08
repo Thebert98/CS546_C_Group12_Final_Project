@@ -3,70 +3,87 @@ let { ObjectId } = require('mongodb');
 // const { all } = require('../routes/recipes');
 const recipes = mongoCollections.recipes;
 
+
 //Create
-	async function create(recipeName,recipePicture,recipeDescription,ingredients,preppingDirections,cookingDirections,cuisineType,dietaryTags) 
-		{
-		if (!recipeName || typeof recipeName != 'string')
-			throw 'A recipeName of type string must be provided for your recipe recipeName';
-		if (!recipePicture || typeof recipePicture != 'string')
-			throw 'A recipeName of type string must be provided for your recipe recipeName';
-		if (!recipeDescription || typeof recipeDescription != 'string') {
-			throw 'A phonenumber of type string must be provided for your recipe phonenumber';
-		}
-		if(typeof ingredients != 'string'){
-			throw 'Ingrediants must be a string'
-		}
-		if(typeof preppingDirections != 'string'){
-			throw 'Prepping Directions must be a string'
-		}
-		if(typeof cookingDirections != 'string'){
-			throw 'Cooking Directions must be a string'
-		}
-		if(typeof dietaryTags!='string'){
-			throw 'Cooking directions must be a string'
-		}
-		if (!ingredients) {
-			throw 'kindly enter ingredients';
-		}
-		if (!preppingDirections) {
-			throw 'kindly enter preppingDirections';
-		}
-		if (!cookingDirections) {
-			throw 'kindly enter cookingDirections';
-		}
-		if (!cuisineType || typeof cuisineType != 'string') {
-			throw 'kindly enter cusine and it must be string';
-		}
-		cuisineType=cuisineType.toLowerCase();
-		const recipeCollection = await recipes();
-		likes = 0;
-		const newRecipe = {
-			recipeName: recipeName,
-			recipePicture: recipePicture,
-			recipeDescription: recipeDescription,
-			ingredients: ingredients,
-			preppingDirections: preppingDirections,
-			cookingDirections: cookingDirections,
-			cuisineType: cuisineType,
-			comments:[],
-			likes:0,
-			dietaryTags:dietaryTags
-		};
-		const insertRecipe = await recipeCollection.insertOne(newRecipe);
-		if (insertRecipe.insertedCount === 0) {
-			throw `Error while adding ${newRecipe}`;
-		}
-		let recipeId = insertRecipe.insertedId;
-		recipeId = recipeId.toString();
-		return await get(recipeId);
+async function create(posterId,recipeName,recipePicture,recipeDescription,ingredients,preppingDirections,cookingDirections,cuisineType,dietaryTags) 
+{
+	if(!posterId) throw 'No posterId was provided'
+	if(typeof posterId !== 'string') throw 'posterId provided is not a string';
+	if (!recipeName || typeof recipeName != 'string')
+		throw 'A recipeName of type string must be provided for your recipe recipeName';
+	if (!recipePicture || typeof recipePicture != 'string')
+		throw 'A recipeName of type string must be provided for your recipe recipeName';
+	if (!recipeDescription || typeof recipeDescription != 'string') {
+		throw 'A phonenumber of type string must be provided for your recipe phonenumber';
 	}
+	if(typeof ingredients != 'string'){
+		throw 'Ingrediants must be a string'
+	}
+	if(typeof preppingDirections != 'string'){
+		throw 'Prepping Directions must be a string'
+	}
+	if(typeof cookingDirections != 'string'){
+		throw 'Cooking Directions must be a string'
+	}
+	if(typeof dietaryTags!='string'){
+		throw 'Cooking directions must be a string'
+	}
+	if (!ingredients) {
+		throw 'kindly enter ingredients';
+	}
+	if (!preppingDirections) {
+		throw 'kindly enter preppingDirections';
+	}
+	if (!cookingDirections) {
+		throw 'kindly enter cookingDirections';
+	}
+	if (!cuisineType || typeof cuisineType != 'string') {
+		throw 'kindly enter cusine and it must be string';
+	}
+	let userData = require('./users')
+	try{
+		let user = await userData.get(posterId)
+		let username = user.username;
+		console.log(user);
+		cuisineType=cuisineType.toLowerCase();
+	const recipeCollection = await recipes();
+	likes = 0;
+	const newRecipe = {
+		posterId: posterId,
+		posterUsername: username,
+		recipeName: recipeName,
+		recipePicture: recipePicture,
+		recipeDescription: recipeDescription,
+		ingredients: ingredients,
+		preppingDirections: preppingDirections,
+		cookingDirections: cookingDirections,
+		cuisineType: cuisineType,
+		comments:[],
+		likers:[],
+		likes: 0,
+		dietaryTags:dietaryTags
+	};
+	const insertRecipe = await recipeCollection.insertOne(newRecipe);
+	if (insertRecipe.insertedCount === 0) {
+		throw `Error while adding ${newRecipe}`;
+	}
+	let recipeId = insertRecipe.insertedId;
+
+	recipeId = recipeId.toString();
+	return await get(recipeId);
+	}catch(e){
+	throw e;
+
+	}
+}
+
 
 
 //Get All
 	async function getAll() {
 		const recipeCollection = await recipes();
 		const allrecipe = await recipeCollection.find({}).toArray();
-		return allrecipe;
+		return allrecipe.reverse();
 	}
 	// getAll();
 
@@ -95,17 +112,23 @@ const recipes = mongoCollections.recipes;
 	}
 
 // Search a recipe (NOT WORKING)
-async function searchRecipe(recipenameID){
-	if(!recipenameID){
-		throw 'No Recipe Name was provided'
+async function searchRecipe(searchTerm){
+	if(!searchTerm){
+		throw 'No searchTerm was provided'
 	}
-	if(typeof recipenameID !='string'){
-		throw 'Recipe Name must be string'
+	if(typeof searchTerm !='string'){
+		throw 'searchTerm provided is not a string'
 	}
-	if(recipenameID.indexOf(' ')>=0){
-		throw 'Input cannot have empty spaces'
+	if(searchTerm.trim(' ').length ==0){
+		throw 'Input be just whitespaces'
 	}
-	var retArray = [];
+
+	const searchingForRecipe = await recipes();
+	await searchingForRecipe.createIndex({recipeName: "text"});
+	const recipeSearch = await searchingForRecipe.find({$text:{$search: searchTerm}}).toArray();
+	
+
+	/*var retArray = [];
 	var a;
 	var b;
 	const searchingForRecipe = await recipes();
@@ -118,7 +141,8 @@ async function searchRecipe(recipenameID){
 		retObj['recipeName']=a;
 		retArray.push(retObj);
 	}
-	return retArray;
+	*/
+	return recipeSearch.reverse();
 }
 
 //Sort by Cuisine
@@ -144,7 +168,7 @@ async function cuisineSort(cuisine){
 			pushArr.push(cuisineSortAll[j]);
 		}
 	}
-	return pushArr;
+	return pushArr.reverse();
 }
 
 //Sort by Dietary Tags
@@ -169,10 +193,104 @@ async function dietaryTagsSort(dtags){
 			retArr1.push(sortDtags[k]);
 		}
 	}
-	return retArr1;
+	return retArr1.reverse();
 }
 
 
+async function likeSort(){
+	
+	
+	const likeSort = await recipes();
+	let mySort ={likes: -1}
+	const sortLikes = await likeSort.find().sort(mySort).toArray();
+	
+	
+	return sortLikes;
+}
+
+
+async function updateLikers(id,userId){
+	if(!id) throw "No id was provided";
+	if(typeof id !== "string") throw "The id provided is not a string";
+	if(!userId)throw "No userId provided";
+	if(typeof userId !="string") throw "The userId provided is not valid";
+	
+	let userData = require('./users')
+	let recipe = await get(id);
+	if(!recipe)throw 'recipe not found';
+	
+	let user = await userData.get(userId);
+	
+	let included = false;
+	for(let i = 0;i<recipe.likers.length;i++){
+		if(user._id === recipe.likers[i]._id)included =true;
+	}
+	
+	if(included)throw 'this user has liked this post already';
+	recipe.likers.push(user);
+	recipe.likes = recipe.likers.length;
+	
+	
+	
+	const recipeCollection = await recipes();
+	let parsedId = ObjectId(id);
+	recipe._id = parsedId;
+	const updatedInfo = await recipeCollection.updateOne(
+		{_id: parsedId},
+		{$set: recipe}
+		);
+	if (updatedInfo.modifedCount === 0){
+		throw "Could not update recipe successfully";
+	} 
+	await userData.updateLikes(userId,id);
+	return await this.get(id);
+
+}
+
+async function removeLikers(id,userId){
+if(!id) throw "No id was provided";
+if(typeof id !== "string") throw "The id provided is not a string";
+if(!userId)throw "No userId provided";
+if(typeof userId !="string") throw "The userId provided is not valid";
+
+
+let userData = require('./users')
+	let recipe = await get(id);
+	if(!recipe)throw 'recipe not found';
+	
+	let user = await userData.get(userId)
+	
+	let included = false;
+	let pos = 0;
+	for(let i = 0;i<recipe.likers.length;i++){
+		if(user._id === recipe.likers[i]._id){
+			included = true;
+			pos = i;
+		}
+	}
+	
+	if(!included)throw 'this user has not liked this post '
+	
+
+recipe.likers.splice(pos,1);
+recipe.likes = recipe.likers.length;
+
+
+
+const recipeCollection = await recipes();
+	let parsedId = ObjectId(id);
+	recipe._id = parsedId;
+	const updatedInfo = await recipeCollection.updateOne(
+		{_id: parsedId},
+		{$set: recipe}
+		);
+	if (updatedInfo.modifedCount === 0){
+		throw "Could not update recipe successfully";
+	} 
+await userData.removeLikes(userId,id);
+return await this.get(id);
+
+}
 
 	module.exports={
 		create,
@@ -180,5 +298,8 @@ async function dietaryTagsSort(dtags){
 		get,
 		searchRecipe,
 		cuisineSort,
-		dietaryTagsSort
+		dietaryTagsSort,
+		updateLikers,
+		removeLikers,
+		likeSort
 	}

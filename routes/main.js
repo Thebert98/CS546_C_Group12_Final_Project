@@ -4,14 +4,21 @@ const mongoCollections=require('../config/mongoCollections');
 const usersData = require('../data/main');
 const main = mongoCollections.main;
 const recipeData = require('../data/recipes')
+const users = mongoCollections.users;
 
 
 
 router.get('/loggedIn',async(req,res)=>{
-		const allRecipes = await recipeData.getAll();
+        if(!req.session.userId){
+            res.redirect('/login')
+            return;
+        }
+        const allRecipes = await recipeData.getAll();
+        const sortedRecipes = await recipeData.likeSort();
+        
 		let id = req.body._id;
 		if(allRecipes){
-			res.render('loggedIn',{username:req.session.user.username, allRecipes:allRecipes,id:id});
+			res.render('loggedIn',{username:req.session.user.username, allRecipes:allRecipes,id:id,userId:req.session.userId, sortByLikes:sortedRecipes});
 			return;
 		}else{
 			res.render('loggedIn',{error:'No Feed Available'});
@@ -173,7 +180,10 @@ router.post('/login',async(req,res)=>{
         }
         const getLoggedIn = await usersData.checkUser(r1username,r1password);
         if(getLoggedIn){
+            let userCollection = await users()
             req.session.user={username:r1username};
+            const user = await userCollection.findOne({ username: r1username });
+            req.session.userId = user._id;
             res.redirect('/loggedIn');
             return;
         }

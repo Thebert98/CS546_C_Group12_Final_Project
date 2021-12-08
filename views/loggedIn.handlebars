@@ -1,29 +1,82 @@
 <div>
     <h1>FOODGRAM</h1>
     <h2>Hello, {{username}}</h2>
+     <form action="/recipe/searchArecipe" method="post" id="formForSearch">
+        <label>
+            <input type="text" id="searchTerm" name="searchTerm" placeholder="Search A Recipe">
+        </label>
+        <label>
+            <input type="submit" value="Submit">
+        </label>
+        <br><br>
+    </form>
     <label>
-        <button type="submit" onclick= "window.location.href='users/myProfile'" id="myprofile" name="myProfile">View My Profile</button>
+        <button type="submit" onclick= "window.location.href='users/myPage'" id="myprofile" name="myProfile">View My Profile</button>
     </label>
     <label>
         <button type="button" onclick= "window.location.href='recipe/postArecipe'" id="postarecipe" name="postrecipe">Post A Recipe</button>
     </label>
     <br><br>
-    <button onclick="window.location.href='recipe/searchArecipe'">SEARCH A RECIPE</button>
+    <!--<button onclick="window.location.href='recipe/searchArecipe'">SEARCH A RECIPE</button>-->
     <br><br>
     <button onclick="window.location.href='recipe/sortByDietaryTags'">SORT BY DIETARY TAGS</button>
     <br><br>
     <button onclick="window.location.href='recipe/sortedCuisine'">SORT BY CUISINE</button>
     <br><br>
+    <button id='sortLikesButton'>SORT BY LIKES</button>
+    <button  id='defaultSortButton'hidden>SORT BY POST DATE</button>
+    <div id='defaultList'>
     {{#if allRecipes}}
     {{#each allRecipes}}
     <ul>
         <li>
-            <form method="post" value={{this._id}}>
+            
             <a href="/recipe/post/{{this._id}}">{{recipeName}}</a>
-            </form>
+            
         </li>
     </ul>
     {{/each}}
     {{/if}}
+    </div>
+    <div id='likeSort' hidden>
+    {{#if sortByLikes}}
+    {{#each sortByLikes}}
+    <ul>
+        <li>
+            
+            <a href="/recipe/post/{{this._id}}">{{recipeName}}</a>
+            
+        </li>
+    </ul>
+    
+    {{/each}}
+    {{/if}}
+    </div>
     <a href="/logout">Log Out</a>
 </div>
+
+<script>
+        let likesButton = document.getElementById('sortLikesButton')
+        let defaultButton = document.getElementById('defaultSortButton')
+        let likeList = document.getElementById('likeSort')
+        let defaultList = document.getElementById('defaultList')
+        
+
+        likesButton.addEventListener('click',(event)=>{
+            defaultList.hidden = true;
+            likesButton.hidden = true;
+            defaultButton.hidden = false;
+            likeList.hidden = false;
+           
+        });
+        defaultButton.addEventListener('click',(event)=>{
+            defaultList.hidden = false;
+            likesButton.hidden = false;
+            defaultButton.hidden = true;
+            likeList.hidden = true;
+           
+        })  
+
+
+
+</script>

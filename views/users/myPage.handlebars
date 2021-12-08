@@ -15,14 +15,15 @@
 <body>
     <h2 class='error'>{{error}}</h2>
     <div id="profile">
-        <form action="editUser" class="inline">
+        
         <label for="edit" class=>Edit:</label><br>
-        <button id="edit" name="edit" >Edit Profile</button>
-        </form>
+        <button id="edit" name="edit">Edit Profile</button>
+        
+        
         <h1>{{user.username}}</h1>
         <br>
         <br>
-        <img alt='{{user.username}} profile picture' src='images/{{user.profilepicture}}' />
+        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
@@ -35,7 +36,7 @@
         <ul>
                 {{#each user.recipes}}
                     <li>
-                    <a href="/recipes/{{id}}">{{name}}</a>
+                    <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
                     </li> 
                     {{else}}
                     <p class="not-found">We're sorry, but this user has not posted any recipes.</p>
@@ -46,7 +47,7 @@
         <h1>{{user.username}}</h1>
         <br>
         <br>
-        <img alt='{{user.username}} profile picture' src='images/{{user.profilepicture}}' />
+        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
@@ -54,15 +55,38 @@
         <br>
         <h3>Liked Recipes:</h3>
         <ul>
-                {{#each user.Likes}}
+                {{#each user.likes}}
                     <li>
-                    <a href="/recipes/{{id}}">{{name}}</a>
+                    <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
                     </li> 
                     {{else}}
                     <p class="not-found">We're sorry, but this user has not liked any recipes.</p>
                 {{/each}}     
         </ul>
     </div>
+    <div id='editPage' hidden>
+        <h2 class='error'>{{error}}</h2>
+        <form method="POST" action="{{user._id}}/edit">
+    
+        <label for="profilePicture" >Profile Picture:</label>
+        <input type="file" id="profilePicture" name="profilePicture" accept="image/png, image/jpeg, image/jpg"><br>
+        <br>
+        <br>
+        <label for="bio" >Bio:</label>
+        <input type="text" id="bio" name="bio" placeholder="Tell us about yourself..." >
+        <br>
+        <br>
+        <label for="favoriteRecipe" >Favorite Recipe:</label>
+        <input type="text" id="favoriteRecipe" name="favoriteRecipe" placeholder="What is your favorite recipe...">
+        <br>
+        <br>
+        <input type="submit" value="Submit" />
+        </form>
+   
+        <input type="submit" id='cancel' name='cancel' value="Cancel" />
+        
+    </div>
+    <a href="/loggedIn">Back to Feed</a>
 </body>
 
 <script>
@@ -70,18 +94,39 @@
         let likesButton = document.getElementById('likesButton')
         let profile = document.getElementById('profile')
         let likes = document.getElementById('likes')
-            
+        let editButton = document.getElementById('edit')
+        let editProfile = document.getElementById('editPage')   
+        let cancelButton = document.getElementById('cancel')
+
         likesButton.addEventListener('click',(event)=>{
             profile.hidden = true;
             likesButton.hidden = true;
             profileButton.hidden = false;
             likes.hidden = false;
+            editProfile.hidden = true;
         }) 
         profileButton.addEventListener('click',(event)=>{
             profile.hidden = false;
             likesButton.hidden = false;
             profileButton.hidden = true;
             likes.hidden = true;
+            editProfile.hidden = true;
+        })
+        editButton.addEventListener('click',(event)=>{
+            profile.hidden = true;
+            likesButton.hidden = true;
+            profileButton.hidden = true;
+            likes.hidden = true;
+            editProfile.hidden = false;
+            
         })          
+       cancelButton.addEventListener('click',(event)=>{
+            profile.hidden = false;
+            likesButton.hidden = false;
+            profileButton.hidden = true;
+            likes.hidden = true;
+            editProfile.hidden = true;
+        })
+        
         
     </script>

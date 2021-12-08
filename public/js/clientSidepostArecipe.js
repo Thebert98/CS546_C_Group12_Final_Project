@@ -66,7 +66,19 @@
             valid=true
             errorDiv.hidden=true
         }
-        let regex3 = /[^0-9a-z]/gi;
+        if(recipenameInput.value.trim(' ').length ===0){
+            event.preventDefault();
+            valid=false
+            recipenameInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Recipe Name cannot contain only whitespace'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
+        
+        let regex3 = /[^0-9a-z\s]/gi;
         if(recipenameInput.value.match(regex3)){
             event.preventDefault();
             valid=false

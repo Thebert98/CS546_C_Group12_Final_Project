@@ -1,6 +1,6 @@
 let {ObjectId} = require("mongodb");
 let mongoCollections = require("../config/mongoCollections");
-const users = mongoCollections.main;
+const users = mongoCollections.users;
 const bcrypt = require('bcryptjs');
 const saltRounds = 5;
 
@@ -99,13 +99,28 @@ async function createUsers(firstName,lastName,username,phoneNumber,password){
     username=username.toLowerCase();
     const hash = await bcrypt.hash(password,saltRounds);
     const userCollections = await users();
-    let mainSchema = {firstName:firstName,lastName:lastName,username:username,phoneNumber:phoneNumber,password:hash};
+   
+    let newUser = {
+        firstName : firstName, 
+        lastName : lastName,
+        username: username,
+        password : hash,
+        phoneNumber:phoneNumber,
+        profilePicture: "default.jpg",
+        favoriteRecipe : "",
+        bio : "",
+        recipes: [],
+        recentlyViewedRecipes:[],
+        count:0,
+        likes: []
+    };
+    
     let existingUser = false;
     existingUser = await userCollections.findOne({username:username});
     if(existingUser){
         throw 'A user with this username already exists, please use a different Username'
     }
-    const insertUser = await userCollections.insertOne(mainSchema);
+    const insertUser = await userCollections.insertOne(newUser);
     if(insertUser.insertedCount === 0){
         throw 'Could not add the user'
     }

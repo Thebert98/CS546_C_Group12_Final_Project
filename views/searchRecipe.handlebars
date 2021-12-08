@@ -1,7 +1,7 @@
 <div>
     <form action="/recipe/searchArecipe" method="post" id="formForSearch">
         <label>
-            <input type="search" id="searchrecipe" name="searchrecipe" placeholder="Search A Recipe">
+            <input type="search" id="searchTerm" name="searchTerm" placeholder="Search A Recipe">
         </label>
         <label>
             <input type="submit" value="Submit">
@@ -12,6 +12,16 @@
     {{#if error}}
     <p>{{error}}</p>
     {{/if}}
+    <ul>
+                {{#each searchResults}}
+                    <li>
+                    <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
+                    </li> 
+                    {{else}}
+                    <h2 class="not-found">No Results Found</h2>
+                    <p>try searching using complete words like "chicken" or "curry"</p>
+                {{/each}}     
+        </ul>
     </div>
     <a href="/loggedIn">Back To Feed</a>
     <script src="/public/js/clientSidepostArecipe.js"></script>
