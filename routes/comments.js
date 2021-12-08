@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const commentData = require('../data/comments');
 
 
@@ -8,11 +7,15 @@ const commentData = require('../data/comments');
 
 
 router.post('/',async(req,res)=>{
+    if(!req.session.user){
+        res.status(400).redirect('/login');
+        return;
+    }
     let recipeIdRoutes = req.body.recipeId;
     let subjectLineRoutes = req.body.subject;
     let descriptionRoutes = req.body.description;
     if(!recipeIdRoutes){
-        res.status(404).render('recipe',{error:'No Restaurant ID was provided'});
+        res.status(404).render('recipe',{error:'No Recipe ID was provided'});
         return;
     }
     if(!subjectLineRoutes){
@@ -23,20 +26,14 @@ router.post('/',async(req,res)=>{
         res.status(404).render('recipe',{error:'No Description was provided'});
         return;
     }
-   
     try{
     const postingComment = await commentData.createComment(recipeIdRoutes,subjectLineRoutes,descriptionRoutes);
     if(postingComment){
         res.redirect('/recipe/post/'+recipeIdRoutes);
-    }else{
-        res.status(400).redirect('/login');
-        return;
     }
     }catch(e){
         res.status(400).render('recipe',{error:e});
     }
-    // console.log(postingComment);
-    
 })
 
 

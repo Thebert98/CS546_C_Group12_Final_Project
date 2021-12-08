@@ -45,7 +45,7 @@ app.use(session({
 }))
 app.use('/loggedIn', async (req, res, next) => {
   if(!req.session.user)
-    return res.status(403).json({ error: 'user is not logged in' });
+    return res.status(403).redirect('/login');
   else
     next();
 });

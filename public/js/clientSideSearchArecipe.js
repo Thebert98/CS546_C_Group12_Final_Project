@@ -1,6 +1,6 @@
 (function () {
 
-    const myForm = document.getElementById("forForSearch");
+    const myForm = document.getElementById("formForSearch");
     let searchRecipeInput = document.getElementById("searchrecipe");
     let errorDiv = document.getElementById('errorcheck');
     if (myForm) {
