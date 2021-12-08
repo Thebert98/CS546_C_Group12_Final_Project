@@ -27,6 +27,15 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
     storage: storage,
+	fileFilter:function (req,file,cb){
+        if((path.extname(file.originalname)=='.jpeg')||(path.extname(file.originalname)=='.jpg')||(path.extname(file.originalname)=='.png')){
+            cb(null,true);
+        }
+        else{
+            cb(null,false);
+
+        }
+    }
 });
 
 //Get a route for posting a recipe on /recipe/postArecipe
@@ -91,7 +100,14 @@ router.get('/post/:id', async(req,res)=>{
 //Route to post on postArecipe form
 router.post('/postArecipe',upload.single('avatar'),async(req,res)=>
 {
-	console.log(req.file.filename)
+	if(!req.session.user){
+		res.redirect('/login');
+		return;
+	}
+	if(!req.file){
+		res.status(400).render('postArecipe',{error:'No image was provided or the file provided was not an image file'});
+		return;
+	}
 	let recipeNameRoutes = req.body.recipeName;
 	let recipePictureRoutes = req.file.filename;
 	let recipeDescriptionRoutes = req.body.recipeDescription;
@@ -267,7 +283,7 @@ router.post('/like', async(req,res)=>{
 		res.redirect('login');
 		return;
 	}
-	
+
 	if(!req.body){
 		res.status(400).render('users/error',{error: "No like status was provided"})
          return;
