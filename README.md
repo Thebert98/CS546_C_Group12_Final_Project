@@ -1,12 +1,13 @@
 # CS546-C Final Project
-## _Project by group 12_    ![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master) 
+
+## _Project by group 12_ ![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)
 
 Main Contributors.
 
 - Tanaya Bhole
 - Kewal Mehta
 - Anish Malhotra
-- Timothy Heberet
+- Timothy Hebert
 
 ## Introduction
 
@@ -14,6 +15,7 @@ Main Contributors.
 The purpose of this application is to allow its users to share their favorite recipes with other users via a social media-like format. The users will be able to personalize their user page and like and comment on other users’ recipe posts. Users will also be able to sort recipes by likes, cuisine origin, and date posted.
 
 ## Core features
+
 - **User Profile**:- Users will be able to personalize their page with a profile picture, favorite recipe, and a bio. Posts by that user will be visible when viewing their profile page
 - **Landing page**:- explains the functionality and purpose of the website
 - **Sort By Likes**:- Users can choose to sort their feed by the number of likes a recipe has

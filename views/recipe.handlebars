@@ -26,7 +26,7 @@
     {{/each}}
 </div>
 <div>
-    <form id="comm" method="post" action="/recipe/comments">Comment On This Recipe
+    <form id="formForComment" method="post" action="/recipe/comments">Comment On This Recipe
     <input type="hidden" name="recipeId" id="recipeId" value="{{a._id}}">
     <br><br>
     <input type="text" placeholder="Enter Subject Line" id="subject" name="subject">
@@ -36,11 +36,13 @@
     <button type="submit" value="Submit">Submit</button>
     </form>
     <br><br>
-    <a href="/loggedIn">Back to Feed</a>
+    <center><a href="/loggedIn">Back to Feed</a></center>
+    <script src="/public/js/clientSidePostAcomment.js"></script>
 </div>
 <div id="errorcheck">
     {{#if error}}
     <p>{{error}}</p>
     {{/if}}
 </div>
+
 

@@ -99,7 +99,6 @@ async function createUsers(firstName,lastName,username,phoneNumber,password){
     username=username.toLowerCase();
     const hash = await bcrypt.hash(password,saltRounds);
     const userCollections = await users();
-   
     let newUser = {
         firstName : firstName, 
         lastName : lastName,

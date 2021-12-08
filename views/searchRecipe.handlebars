@@ -10,7 +10,7 @@
     </form>
     <div id="errorcheck">
     {{#if error}}
-    <p>{{error}}</p>
+    <p id="errorcheck">{{error}}</p>
     {{/if}}
     <ul>
                 {{#each searchResults}}
@@ -23,6 +23,6 @@
                 {{/each}}     
         </ul>
     </div>
-    <a href="/loggedIn">Back To Feed</a>
+   <center> <a href="/loggedIn">Back To Feed</a></center>
     <script src="/public/js/clientSidepostArecipe.js"></script>
 </div>
