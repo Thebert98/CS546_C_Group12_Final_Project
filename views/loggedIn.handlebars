@@ -47,12 +47,15 @@
     <div id='likeSort' hidden>
     {{#if sortByLikes}}
     {{#each sortByLikes}}
-    <ul>
-        <li>
-            
-            <a href="/recipe/post/{{this._id}}">{{recipeName}}</a>
-            
+     <ul class='recipeDisplay'>
+        <li class='recipeList'> 
+            <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
+            <div class="recipeContent">
+            <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
+            <p>Created By {{posterUsername}}</p>
+            </div>
         </li>
+    </ul>>
     </ul>   
     {{/each}}
     {{/if}}
@@ -60,21 +63,3 @@
     <a href="/logout">Log Out</a>
 </div>
 <script src="/public/js/clientSideSearchArecipe.js"></script>
-{{!-- <script>
-        let likesButton = document.getElementById('sortLikesButton')
-        let defaultButton = document.getElementById('defaultSortButton')
-        let likeList = document.getElementById('likeSort')
-        let defaultList = document.getElementById('defaultList')
-        likesButton.addEventListener('click',(event)=>{
-            defaultList.hidden = true;
-            likesButton.hidden = true;
-            defaultButton.hidden = false;
-            likeList.hidden = false;
-        });
-        defaultButton.addEventListener('click',(event)=>{
-            defaultList.hidden = false;
-            likesButton.hidden = false;
-            defaultButton.hidden = true;
-            likeList.hidden = true;
-        })  
-</script> --}}

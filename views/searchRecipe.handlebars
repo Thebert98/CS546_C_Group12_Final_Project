@@ -14,10 +14,16 @@
     {{/if}}
     <ul>
                 {{#each searchResults}}
-                    <li>
-                    <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
-                    </li> 
-                    {{else}}
+                     <ul class='recipeDisplay'>
+                        <li class='recipeList'> 
+                            <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
+                            <div class="recipeContent">
+                            <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
+                            <p>Created By {{posterUsername}}</p>
+                            </div>
+                        </li>
+                     </ul> 
+                     {{else}}
                     <h2 class="not-found">No Results Found</h2>
                     <p>try searching using complete words like "chicken" or "curry"</p>
                 {{/each}}     

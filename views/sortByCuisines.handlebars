@@ -20,10 +20,14 @@
 {{/if}}
 <div>
     {{#each sortCui}}
-    <ul>
-        <form method="post" value={{this._id}}>
-        <li><a href="/recipe/post/{{this._id}}">{{recipeName}}</a></li>
-        </form>
+     <ul class='recipeDisplay'>
+        <li class='recipeList'> 
+            <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
+            <div class="recipeContent">
+            <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
+            <p>Created By {{posterUsername}}</p>
+            </div>
+        </li>
     </ul>
     {{/each}}
     <a href="/loggedIn">Back To Feed</a>

@@ -22,4 +22,21 @@
     }
 })();
 
+let likesButton = document.getElementById('sortLikesButton')
+        let defaultButton = document.getElementById('defaultSortButton')
+        let likeList = document.getElementById('likeSort')
+        let defaultList = document.getElementById('defaultList')
+        likesButton.addEventListener('click',(event)=>{
+            defaultList.hidden = true;
+            likesButton.hidden = true;
+            defaultButton.hidden = false;
+            likeList.hidden = false;
+        });
+        defaultButton.addEventListener('click',(event)=>{
+            defaultList.hidden = false;
+            likesButton.hidden = false;
+            defaultButton.hidden = true;
+            likeList.hidden = true;
+        })  
+
 
