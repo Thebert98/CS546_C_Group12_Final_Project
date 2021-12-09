@@ -241,7 +241,6 @@ router.post('/searchArecipe', async (req,res)=>{
 		res.status(400).render('users/error',{error: "Input cannot be only whitespace"});
 		return;
 	}
-	
 	try{
 		let searchResults = await recipeData.searchRecipe(xss(data.searchTerm));
 		res.status(200).render('searchRecipe',{searchResults:searchResults});
