@@ -241,7 +241,7 @@ router.post('/searchArecipe', async (req,res)=>{
 		res.status(400).render('users/error',{error: "No searchTerm was provided"});
 		return;
 	}
-	let data = xss(req.body);
+	let data = req.body;
 	if(!data.searchTerm){
 		res.status(400).render('users/error',{error: "No searchTerm was provided"});
 		return;
@@ -256,7 +256,7 @@ router.post('/searchArecipe', async (req,res)=>{
 	}
 	
 	try{
-		let searchResults = await recipeData.searchRecipe(data.searchTerm);
+		let searchResults = await recipeData.searchRecipe(xss(data.searchTerm));
 		res.status(200).render('searchRecipe',{searchResults:searchResults});
 		
 	}catch(e){

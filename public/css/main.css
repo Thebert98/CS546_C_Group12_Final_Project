@@ -75,7 +75,22 @@ h2 {
   object-fit: cover;
 
 }
+.commentList{
 
+    display: table;
+    margin: 0 auto;
+    border:5px solid #000;
+    padding:20px;
+   
+    background-color:powderblue;
+    text-align:center
+}
+.comment{
+  border:2px solid #000;
+  padding:20px;
+  
+  background-color: maroon;
+}
 .photo{
   
   width:  400px;
