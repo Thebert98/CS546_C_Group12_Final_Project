@@ -8,7 +8,7 @@
         <h1>{{user.username}}</h1>
         <br>
         <br>
-        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
+        <img class='photo' alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
@@ -18,36 +18,51 @@
         <br>
         <p><b>Favorite Recipe: </b>{{user.favoriteRecipe}}</p>
         <br>
-        <ul>
+        <br>
+        <h2>Posted Recipes</h2>
+        <div class='table'>
+        <ul class='recipeDisplay'>
                 {{#each user.recipes}}
-                    <li>
+                    <li class='recipeList'> 
+                    <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
+                    <div class="recipeContent">
                     <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
-                    </li> 
+                    <p>Created By {{posterUsername}}</p>
+                    </div>
+                    </li>
                     {{else}}
                     <p class="not-found">We're sorry, but this user has not posted any recipes.</p>
                 {{/each}}     
         </ul>
+        </div>
     </div>
     <div id='likes' hidden>
         <h1>{{user.username}}</h1>
         <br>
         <br>
-        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
+        <img class='photo' alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
         <br>
         <br>
         <h3>Liked Recipes:</h3>
-        <ul>
+        <div class='table'>
+        <ul class='recipeDisplay'>
                 {{#each user.likes}}
-                    <li>
+                    <li class='recipeList'> 
+                    <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
+                    <div class="recipeContent">
                     <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
-                    </li> 
+                    <p>Created By {{posterUsername}}</p>
+                    </div>
+                    </li>
+                
                     {{else}}
                     <p class="not-found">We're sorry, but this user has not liked any recipes.</p>
                 {{/each}}     
         </ul>
+        </div>
     </div>
     <div id='editPage' hidden>
         <h2 class='error'>{{error}}</h2>
@@ -74,22 +89,29 @@
         <h1>{{user.username}}</h1>
         <br>
         <br>
-        <img alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
+        <img class='photo' alt='{{user.username}} profile picture' src='/public/images/{{user.profilePicture}}' />
         <br>
         <br>
         <h2> {{user.firstName}}  {{user.lastName}}</h2>
         <br>
         <br>
         <h3>Recently Viewed Recipes:</h3>
-        <ul>
+        <div class='table'>
+        <ul class='recipeDisplay'>
                 {{#each user.recentlyViewedRecipes}}
-                    <li>
+                   
+                    <li class='recipeList'> 
+                    <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
+                    <div class="recipeContent">
                     <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
-                    </li> 
+                    <p>Created By {{posterUsername}}</p>
+                    </div>
+                    </li>
                     {{else}}
                     <p class="not-found">You have not recently viewed any recipes.</p>
                 {{/each}}     
         </ul>
+        </div>
     </div>
     <a href="/loggedIn">Back to Feed</a>
 {{!-- <script src="/public/js/ClientSideUpdateProfile.js"></script> --}}

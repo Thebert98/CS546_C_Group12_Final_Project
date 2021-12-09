@@ -32,11 +32,13 @@
     <div id='defaultList'>
     {{#if allRecipes}}
     {{#each allRecipes}}
-    <ul>
-        <li>
-            
-            <a href="/recipe/post/{{this._id}}">{{recipeName}}</a>
-            
+    <ul class='recipeDisplay'>
+        <li class='recipeList'> 
+            <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
+            <div class="recipeContent">
+            <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
+            <p>Created By {{posterUsername}}</p>
+            </div>
         </li>
     </ul>
     {{/each}}
