@@ -256,7 +256,7 @@ router.post('/searchArecipe', async (req,res)=>{
 	}
 	
 	try{
-		let searchResults = await recipeData.searchRecipe(data.searchTerm);
+		let searchResults = await recipeData.searchRecipe(xss(data.searchTerm));
 		res.status(200).render('searchRecipe',{searchResults:searchResults});
 		
 	}catch(e){
