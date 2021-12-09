@@ -17,7 +17,17 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
     storage: storage,
+    fileFilter:function (req,file,cb){
+        if((path.extname(file.originalname)=='.jpeg')||(path.extname(file.originalname)=='.jpg')||(path.extname(file.originalname)=='.png')){
+            cb(null,true);
+        }
+        else{
+            cb(null,false);
+
+        }
+    }
 });
+
 
 
 
@@ -81,15 +91,17 @@ const upload = multer({
          res.status(400).render('users/errorEdit',{error:'You cannot update the profile of other users'})
          return;
      }
+
+     
      const updateImage = req.file;
      const updateData = xss(req.body);
      
      if((!updateImage) &&(!updateData.bio)&&(!updateData.favoriteRecipe)){
-        res.status(400).render('users/errorEdit',{error: "No updates were provided"})
+        res.status(400).render('users/errorEdit',{error: "No updates were provided or a non image file was provided."})
         return;
     }
     try {
-        user = await userData.get(req.session.userId);
+        user = await userData.get(xss(req.session.userId));
          
        } catch (e) {
          res.status(404).render('users/errorEdit',{ message: 'User not found' });
@@ -113,7 +125,7 @@ const upload = multer({
         }
           
         try{
-            await userData.updateProfilePicture(user._id,updateImage.filename)
+            await userData.updateProfilePicture(user._id,xss(updateImage.filename))
            
        }catch(e){
            res.status(400).render('users/errorEdit',{error: e});
@@ -133,7 +145,7 @@ const upload = multer({
         }
         
         try{
-            await userData.updateBio(user._id,updateData.bio)
+            await userData.updateBio(user._id,xss(updateData.bio))
            
        }catch(e){
            res.status(400).render('users/errorEdit',{error: e});
@@ -155,7 +167,7 @@ const upload = multer({
         }
         
         try{
-            await userData.updateFavoriteRecipe(user._id,updateData.favoriteRecipe)
+            await userData.updateFavoriteRecipe(user._id,xss(updateData.favoriteRecipe))
            
        }catch(e){
            res.status(400).render('users/errorEdit',{error: e});
@@ -165,7 +177,7 @@ const upload = multer({
 
     
     try{
-    user = user = await userData.get(req.session.userId);
+    
     res.status(200).redirect('/users/myPage');
     }catch(e){
         res.status(400).render('users/error',{error: e});
@@ -212,14 +224,5 @@ router.get('/myPage' ,async (req, res) => {
         res.redirect( 'profile/' +req.session.userId);
     }
     })
-
-    router.get('/myProfile', async(req,res)=>{
-	if(req.session.user){
-		res.render('myProfile');
-		return;
-	}else{
-		res.status(400).json({error:'User must login to view their profile'});
-	}
-})
 
 module.exports = router;

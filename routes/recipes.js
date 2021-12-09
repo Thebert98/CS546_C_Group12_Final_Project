@@ -17,6 +17,28 @@ const xss = require('xss');
 
 //-----------------------------------------------------------------------------------------
 
+let path = require('path')
+const multer= require('multer')
+const storage = multer.diskStorage({
+    destination: './public/images/',
+    filename: function(req,file,cb){
+        cb(null,file.fieldname + '-' + Date.now() +
+        path.extname(file.originalname));
+    }
+});
+const upload = multer({
+    storage: storage,
+	fileFilter:function (req,file,cb){
+        if((path.extname(file.originalname)=='.jpeg')||(path.extname(file.originalname)=='.jpg')||(path.extname(file.originalname)=='.png')){
+            cb(null,true);
+        }
+        else{
+            cb(null,false);
+
+        }
+    }
+});
+
 //Get a route for posting a recipe on /recipe/postArecipe
 router.get('/postArecipe', async(req,res)=>{
 	if(req.session.user){
@@ -77,9 +99,18 @@ router.get('/post/:id', async(req,res)=>{
 });
 
 //Route to post on postArecipe form
-router.post('/postArecipe',async(req,res)=>{
+router.post('/postArecipe',upload.single('avatar'),async(req,res)=>
+{
+	if(!req.session.user){
+		res.redirect('/login');
+		return;
+	}
+	if(!req.file){
+		res.status(400).render('postArecipe',{error:'No image was provided or the file provided was not an image file'});
+		return;
+	}
 	let recipeNameRoutes = xss(req.body.recipeName);
-	let recipePictureRoutes = xss(req.body.recipePicture);
+	let recipePictureRoutes = xss(req.file.filename);
 	let recipeDescriptionRoutes = xss(req.body.recipeDescription);
 	let ingredientsRoutes = xss(req.body.ingredients);
 	let preppingDirectionsRoutes = xss(req.body.preppingDirections);
@@ -128,7 +159,7 @@ router.post('/sortedCuisine',async(req,res)=>{
 		res.redirect('/login');
 		return;
 	}
-	let x = xss(req.body.cuisines);
+	let x = req.body.cuisines;
 	if(!x){
 		res.status(404).render('sortByCuisines',{error:'No Parameter was provided'});
 		return;
@@ -173,7 +204,7 @@ router.post('/sortByDietaryTags',async(req,res)=>{
 		res.redirect('/login');
 		return;
 	}
-	let y = xss(req.body.dietarytags);
+	let y = req.body.dietarytags;
 	if(!y){
 		res.status(404).render('sortedDietaryTags',{error:'No Input was provided'});
 		return;
@@ -253,7 +284,7 @@ router.post('/like', async(req,res)=>{
 		res.redirect('login');
 		return;
 	}
-	
+
 	if(!req.body){
 		res.status(400).render('users/error',{error: "No like status was provided"})
          return;

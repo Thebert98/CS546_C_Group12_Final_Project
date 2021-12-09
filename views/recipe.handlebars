@@ -10,8 +10,8 @@
     <br>
     <p>Cooking Directions: {{a.cookingDirections}}</p>
     <br>
-    <p>Likes: {{a.likes}}</p>
-    <form action='/recipe/like' method='POST' id='likeForm'>
+    <p id='likeCount'>Likes: {{a.likes}}</p>
+    <form id='likeForm'>
     <label for='likeStatus'>
     <button type='submit' id='likeStatus' name='likeStatus' value='{{likedStatus}}'>{{likedStatus}}</button>
     </label>
@@ -25,6 +25,7 @@
     </ul>
     {{/each}}
 </div>
+
 <div>
     <form id="formForComment" method="post" action="/recipe/comments">Comment On This Recipe
     <input type="hidden" name="recipeId" id="recipeid" value="{{a._id}}">
@@ -43,7 +44,11 @@
     </div>
     <a href="/loggedIn">Back to Feed</a>
 </div>
-<script src="/public/js/clientSidePostAcomment.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+    <script src='/public/js/likeAjax.js'></script>;
 
 
 

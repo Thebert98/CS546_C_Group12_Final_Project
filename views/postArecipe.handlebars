@@ -1,28 +1,22 @@
 <h2>Cooked something new? Share with our users.</h2>
-<form action="/recipe/postArecipe" method="POST" id="post-a-recipe-form">
-    <label>
-        <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName"> 
-    </label>
+<form action="/recipe/postArecipe" method="POST" id="post-a-recipe-form" enctype="multipart/form-data">
+    <label for="recipeName">Enter a Recipe Name:</label>
+    <input type="text" placeholder="Enter the Recipe Name Here" id="recipeName" name="recipeName" required> 
     <br><br>
-    <label>
-        <input type="text" placeholder="Upload the recipe picture" id="recipepicture" name="recipePicture">
-    </label>
+    <label for="avatar">Upload Recipe Picture:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" required><br>
     <br><br>
-    <label>
-        <textarea placeholder="Enter the Recipe description Here" id="recipeDescription" name="recipeDescription"></textarea>
-    </label>
+    <label for="recipeDescription">Enter Recipe Description:</label>
+    <textarea placeholder="Enter the Recipe description Here" id="recipeDescription" name="recipeDescription" required></textarea>
     <br><br>
-    <label>
-        <textarea placeholder="Enter the Recipe Ingredients Here" id="ingredients" name="ingredients"></textarea>
-    </label>
+    <label for="ingredients">Enter Ingredients:</label>
+    <textarea placeholder="Enter the Recipe Ingredients Here" id="ingredients" name="ingredients" required></textarea>
     <br><br>
-    <label>
-        <textarea placeholder="Enter the Preparation Directions Here" id="preppingDirections" name="preppingDirections"></textarea>
-    </label>
+    <label for="preppingDirections">Enter Prepping Directions:</label>
+    <textarea placeholder="Enter the Preparation Directions Here" id="preppingDirections" name="preppingDirections" required></textarea>
     <br><br>
-    <label>
-        <textarea placeholder="Enter the Cooking Directions Here" id="cookingDirections" name="cookingDirections"></textarea>
-    </label>
+    <label for="cookingDirections">Enter Cooking Recipe:</label>
+    <textarea placeholder="Enter the Cooking Directions Here" id="cookingDirections" name="cookingDirections" required></textarea>
     <br><br>
     <label>
         <select id="cuisineType" name="cuisineType">
