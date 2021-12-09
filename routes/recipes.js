@@ -4,19 +4,6 @@ const recipeData = require('../data/recipes');
 const userData = require('../data/users');
 let { ObjectId } = require('mongodb');
 const xss = require('xss');
-//-----------------------------Needs to go into the users routes---------------------------
-
-// router.get('/myProfile', async(req,res)=>{
-// 	if(req.session.user){
-// 		res.render('myProfile');
-// 		return;
-// 	}else{
-// 		res.status(400).json({error:'User must login to view their profile'});
-// 	}
-// })
-
-//-----------------------------------------------------------------------------------------
-
 let path = require('path')
 const multer= require('multer')
 const storage = multer.diskStorage({

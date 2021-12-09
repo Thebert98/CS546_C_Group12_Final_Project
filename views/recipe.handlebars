@@ -17,7 +17,7 @@
     </label>
     <input type="hidden" name="recipeId" id="recipeId" value="{{a._id}}">
     </form>
-    <h4>Comments:</h4>
+    <h3>Comments:</h3>
     {{#each b}}
     <ul class='commentList'>
         <li class='comment'><h4>Subject : {{subject}}</h4>
@@ -30,9 +30,13 @@
     <form id="formForComment" method="post" action="/recipe/comments">Comment On This Recipe
     <input type="hidden" name="recipeId" id="recipeid" value="{{a._id}}">
     <br><br>
+    <label for="subjectLine">Enter Comment Subject Here
     <input type="text" placeholder="Enter Subject Line" id="subject" name="subject">
+    </label>
     <br><br>
+    <label for="descriptionComment"> Enter Comment Description Here
     <textarea id="description" placeholder="Enter Description" name="description"></textarea>
+    </label>
     <br><br>
     <button type="submit" value="Submit">Submit</button>
     </form>
