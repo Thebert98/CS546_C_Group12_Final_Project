@@ -5,6 +5,7 @@ const { checkUser, createUser } = require('../data/users');
 const bcrypt = require("bcrypt");
 const saltRounds = 16;
 let { ObjectId } = require('mongodb');
+const xss=require('xss');
 let path = require('path')
 const multer= require('multer')
 const storage = multer.diskStorage({
@@ -80,10 +81,8 @@ const upload = multer({
          res.status(400).render('users/errorEdit',{error:'You cannot update the profile of other users'})
          return;
      }
-
-     console.log(req.file);
      const updateImage = req.file;
-     const updateData = req.body;
+     const updateData = xss(req.body);
      
      if((!updateImage) &&(!updateData.bio)&&(!updateData.favoriteRecipe)){
         res.status(400).render('users/errorEdit',{error: "No updates were provided"})

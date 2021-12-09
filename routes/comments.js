@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const commentData = require('../data/comments');
+const xss = require('xss');
 
 
 //Not working
@@ -11,9 +12,9 @@ router.post('/',async(req,res)=>{
         res.status(400).redirect('/login');
         return;
     }
-    let recipeIdRoutes = req.body.recipeId;
-    let subjectLineRoutes = req.body.subject;
-    let descriptionRoutes = req.body.description;
+    let recipeIdRoutes = xss(req.body.recipeId);
+    let subjectLineRoutes = xss(req.body.subject);
+    let descriptionRoutes = xss(req.body.description);
     if(!recipeIdRoutes){
         res.status(404).render('recipe',{error:'No Recipe ID was provided'});
         return;

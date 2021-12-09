@@ -6,6 +6,7 @@
     let errorDiv = document.getElementById('errorcheck');
     if (myForm) {
     myForm.addEventListener("submit", (event) => {
+        console.log("here")
         valid = true
         if(!bioInput.value){
             event.preventDefault();

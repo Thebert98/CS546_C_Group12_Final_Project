@@ -3,6 +3,7 @@ const router = express.Router();
 const recipeData = require('../data/recipes');
 const userData = require('../data/users');
 let { ObjectId } = require('mongodb');
+const xss = require('xss');
 //-----------------------------Needs to go into the users routes---------------------------
 
 // router.get('/myProfile', async(req,res)=>{
@@ -77,14 +78,14 @@ router.get('/post/:id', async(req,res)=>{
 
 //Route to post on postArecipe form
 router.post('/postArecipe',async(req,res)=>{
-	let recipeNameRoutes = req.body.recipeName;
-	let recipePictureRoutes = req.body.recipePicture;
-	let recipeDescriptionRoutes = req.body.recipeDescription;
-	let ingredientsRoutes = req.body.ingredients;
-	let preppingDirectionsRoutes = req.body.preppingDirections;
-	let cookingDirectionsRoutes = req.body.cookingDirections;
-	let cuisineTypeRoutes = req.body.cuisineType;
-	let dietaryTagsRoutes = req.body.dietaryTags;
+	let recipeNameRoutes = xss(req.body.recipeName);
+	let recipePictureRoutes = xss(req.body.recipePicture);
+	let recipeDescriptionRoutes = xss(req.body.recipeDescription);
+	let ingredientsRoutes = xss(req.body.ingredients);
+	let preppingDirectionsRoutes = xss(req.body.preppingDirections);
+	let cookingDirectionsRoutes = xss(req.body.cookingDirections);
+	let cuisineTypeRoutes = xss(req.body.cuisineType);
+	let dietaryTagsRoutes = xss(req.body.dietaryTags);
 	if(!recipeNameRoutes || !recipePictureRoutes || !recipeDescriptionRoutes || !ingredientsRoutes || !preppingDirectionsRoutes || !cookingDirectionsRoutes || !cuisineTypeRoutes || !dietaryTagsRoutes){
 		res.status(404).render('postArecipe',{error:'All inputs must be provided'});
 		return;
@@ -127,7 +128,7 @@ router.post('/sortedCuisine',async(req,res)=>{
 		res.redirect('/login');
 		return;
 	}
-	let x = req.body.cuisines;
+	let x = xss(req.body.cuisines);
 	if(!x){
 		res.status(404).render('sortByCuisines',{error:'No Parameter was provided'});
 		return;
@@ -172,7 +173,7 @@ router.post('/sortByDietaryTags',async(req,res)=>{
 		res.redirect('/login');
 		return;
 	}
-	let y = req.body.dietarytags;
+	let y = xss(req.body.dietarytags);
 	if(!y){
 		res.status(404).render('sortedDietaryTags',{error:'No Input was provided'});
 		return;
@@ -209,7 +210,7 @@ router.post('/searchArecipe', async (req,res)=>{
 		res.status(400).render('users/error',{error: "No searchTerm was provided"});
 		return;
 	}
-	let data = req.body;
+	let data = xss(req.body);
 	if(!data.searchTerm){
 		res.status(400).render('users/error',{error: "No searchTerm was provided"});
 		return;

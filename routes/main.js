@@ -5,6 +5,7 @@ const usersData = require('../data/main');
 const main = mongoCollections.main;
 const recipeData = require('../data/recipes')
 const users = mongoCollections.users;
+const xss = require('xss');
 
 
 
@@ -16,7 +17,7 @@ router.get('/loggedIn',async(req,res)=>{
         const allRecipes = await recipeData.getAll();
         const sortedRecipes = await recipeData.likeSort();
         
-		let id = req.body._id;
+		let id = xss(req.body._id);
 		if(allRecipes){
 			res.render('loggedIn',{username:req.session.user.username, allRecipes:allRecipes,id:id,userId:req.session.userId, sortByLikes:sortedRecipes});
 			return;
@@ -58,11 +59,11 @@ router.get('/login',async(req,res)=>{
 
 router.post('/signup',async(req,res)=>{
     try{
-        let rfirstname=req.body.firstName;
-        let rlastname=req.body.lastName;
-        let rusername=req.body.username;
-        let rphonenumber=req.body.phoneNumber;
-        let rpassword=req.body.password;
+        let rfirstname=xss(req.body.firstName);
+        let rlastname=xss(req.body.lastName);
+        let rusername=xss(req.body.username);
+        let rphonenumber=xss(req.body.phoneNumber);
+        let rpassword=xss(req.body.password);
         rusername=rusername.toLowerCase();
         if(!rfirstname||!rlastname||!rusername||!rphonenumber||!rpassword){
             res.status(400).render('signup',{error:'All inputs must be provided'});
@@ -138,8 +139,8 @@ router.post('/signup',async(req,res)=>{
 
 router.post('/login',async(req,res)=>{
     try{
-        let r1username = req.body.username;
-        let r1password = req.body.password;
+        let r1username = xss(req.body.username);
+        let r1password = xss(req.body.password);
         r1username=r1username.toLowerCase();
         if(!r1username||!r1password){
             res.status(400).render('login',{error:'All inputs must be provided'});
