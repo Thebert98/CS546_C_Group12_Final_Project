@@ -266,7 +266,7 @@ router.get('/sortedLikes',async(req,res)=>{
 
 
 router.post('/like', async(req,res)=>{
-	if(!req.session.id){
+	if(!req.session.userId){
 		res.redirect('login');
 		return;
 	}
