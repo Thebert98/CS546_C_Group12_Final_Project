@@ -37,7 +37,7 @@
             <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
             <div class="recipeContent">
             <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
-            <p>Created By {{posterUsername}}</p>
+            <p>Created By <a href='/users/profile/{{posterId}}'>{{posterUsername}}</a></p>
             </div>
         </li>
     </ul>
@@ -52,7 +52,7 @@
             <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
             <div class="recipeContent">
             <a href="/recipe/post/{{_id}}">{{recipeName}}</a>
-            <p>Created By {{posterUsername}}</p>
+            <p>Created By <a href='/users/profile/{{posterId}}'>{{posterUsername}}</a></p>
             </div>
         </li>
     </ul>>
