@@ -1,11 +1,7 @@
-	<header>
-		
-		<title>{{user.username}} Edit</title>
-	</header>
-    
-    
+<header>
+	<title>{{user.username}} Edit</title>
+</header>
 <link rel='stylesheet' href='public/css/style.css'/>
-    <h2 class='error'>{{error}}</h2>
     <form method="POST" action="/edit" id="formForEditUser">
         <label for="Profile Picture" >Profile Picture:</label><br>
         <input id="image" type="file" name="profilePicture" placeholder="Photo" required="" capture>
