@@ -6,16 +6,29 @@
     let ingredientsInput = document.getElementById("ingredients");
     let preppingdirectionInput = document.getElementById("preppingDirections");
     let cookingdirectionsInput = document.getElementById("cookingDirections");
+    let postaPic = document.getElementById("avatar");
     let errorDiv = document.getElementById('errorcheck');
     if (myForm) {
     myForm.addEventListener("submit", (event) => {
         valid = true
-        if(!recipenameInput.value){
+        if(!recipenameInput.value ){
             event.preventDefault();
             valid = false
             recipenameInput.value = ''
             errorDiv.hidden = false;
             errorDiv.innerHTML = 'Recipe Name must be provided'
+            return
+        }
+        else{
+            valid = true
+            errorDiv.hidden = true
+        }
+        if(!postaPic.value){
+            event.preventDefault();
+            valid = false
+            postaPic.value = ''
+            errorDiv.hidden = false;
+            errorDiv.innerHTML = 'Recipe Picture must be provided'
             return
         }
         else{

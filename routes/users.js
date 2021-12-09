@@ -94,14 +94,14 @@ const upload = multer({
 
      
      const updateImage = req.file;
-     const updateData = xss(req.body);
+     const updateData = req.body;
      
      if((!updateImage) &&(!updateData.bio)&&(!updateData.favoriteRecipe)){
         res.status(400).render('users/errorEdit',{error: "No updates were provided or a non image file was provided."})
         return;
     }
     try {
-        user = await userData.get(xss(req.session.userId));
+        user = await userData.get(req.session.userId);
          
        } catch (e) {
          res.status(404).render('users/errorEdit',{ message: 'User not found' });
