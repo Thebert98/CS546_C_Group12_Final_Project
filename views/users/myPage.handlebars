@@ -67,7 +67,6 @@
     <div id='editPage' hidden>
         <h2 class='error'>{{error}}</h2>
         <form method="POST" action="{{user._id}}/edit" id="formForEditUser" enctype="multipart/form-data">
-    
         <label for="profilePicture" >Profile Picture:</label>
         <input type="file" id="profilePicture" name="profilePicture" accept='image/png, image/jpg, image/jpeg'><br>
         <br>
@@ -83,7 +82,11 @@
         <input type="submit" value="Submit" />
         </form>
         <input type="submit" id='cancel' name='cancel' value="Cancel" />
-        
+    </div>
+    <div id="errorcheck">
+        {{#if error}}
+        <p>{{error}}</p>
+        {{/if}}
     </div>
     <div id='recents' hidden>
         <h1>{{user.username}}</h1>
@@ -113,10 +116,5 @@
         </div>
     </div>
     <a href="/loggedIn">Back to Feed</a>
-    <div id="errorcheck">
-        {{#if error}}
-        <p>{{error}}</p>
-        {{/if}}
-    </div>
 <script src="/public/js/ClientSideUpdateProfile.js"></script>
 

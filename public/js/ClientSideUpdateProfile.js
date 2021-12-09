@@ -8,12 +8,12 @@
     if (myForm) {
     myForm.addEventListener("submit", (event) => {
         valid = true
-        if(!bioInput.value && !favRecipeInput && !profilePictureInput){
+        if(!bioInput.value || !favRecipeInput.value || !profilePictureInput.value){
             event.preventDefault();
             valid = false
             bioInput.value = ''
-            favRecipeInput = ''
-            profilePictureInput=''
+            favRecipeInput.value = ''
+            profilePictureInput.value = ''
             errorDiv.hidden = false;
             errorDiv.innerHTML = 'No Updates were provided'
             return

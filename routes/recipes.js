@@ -241,7 +241,7 @@ router.post('/searchArecipe', async (req,res)=>{
 		res.status(400).render('users/error',{error: "No searchTerm was provided"});
 		return;
 	}
-	let data = xss(req.body);
+	let data = req.body;
 	if(!data.searchTerm){
 		res.status(400).render('users/error',{error: "No searchTerm was provided"});
 		return;
