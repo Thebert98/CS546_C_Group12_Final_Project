@@ -41,7 +41,7 @@ async function create(posterId,recipeName,recipePicture,recipeDescription,ingred
 		throw 'kindly enter cusine and it must be string';
 	}
 
-	if((path.extname(recipePicture)!=='.jpeg')&&(path.extname(recipePicture)!=='.jpg')&&(path.extname(recipePicture)!=='.png')) throw 'Provided file was not a jpeg, png, or jpg';
+	if((path.extname(recipePicture).toLowerCase()!=='.jpeg')&&(path.extname(recipePicture).toLowerCase()!=='.jpg')&&(path.extname(recipePicture).toLowerCase()!=='.png')) throw 'Provided file was not a jpeg, png, or jpg';
 	let userData = require('./users')
 	try{
 		let user = await userData.get(posterId)
