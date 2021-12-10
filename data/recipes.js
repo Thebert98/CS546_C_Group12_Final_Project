@@ -59,11 +59,11 @@ async function create(posterId,recipeName,recipePicture,recipeDescription,ingred
 		ingredients: ingredients,
 		preppingDirections: preppingDirections,
 		cookingDirections: cookingDirections,
-		cuisineType: cuisineType,
+		cuisineType: cuisineType.toLowerCase(),
 		comments:[],
 		likers:[],
 		likes: 0,
-		dietaryTags:dietaryTags
+		dietaryTags:dietaryTags.toLowerCase()
 	};
 	const insertRecipe = await recipeCollection.insertOne(newRecipe);
 	if (insertRecipe.insertedCount === 0) {
