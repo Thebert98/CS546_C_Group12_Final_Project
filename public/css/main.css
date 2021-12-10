@@ -206,3 +206,443 @@ h3 {
   text-align: center;
   color: #917300;
 }
+#reset {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#reset:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#submit1 {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#submit1:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#submit2 {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#submit2:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#submit3 {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#submit3:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#postarecipe {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#postarecipe:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#myprofile {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#myprofile:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#buttonForDtags {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#buttonForDtags:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#buttonForCuisine {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#buttonForCuisine:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#sortLikesButton {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#sortLikesButton:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#defaultSortButton {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#defaultSortButton:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#likesButton {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#likesButton:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#profileButton {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#profileButton:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#recentsButton {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#recentsButton:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#edit {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#edit:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#profilePicture {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#profilePicture:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#submit5 {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#submit5:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#cancel {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#cancel:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#signup {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#signup:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#login {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#login:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#likeStatus {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#likeStatus:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
