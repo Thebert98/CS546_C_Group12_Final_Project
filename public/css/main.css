@@ -646,3 +646,25 @@ h3 {
   box-shadow: 1px 1px 5px -2px black;
   padding-right: 20px;
 }
+#avatar {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#avatar:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
