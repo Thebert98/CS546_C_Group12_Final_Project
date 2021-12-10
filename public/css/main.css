@@ -668,3 +668,24 @@ h3 {
   box-shadow: 1px 1px 5px -2px black;
   padding-right: 20px;
 }
+
+#signup-form {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 350px;
+  width: 300px;
+  box-sizing: border-box;
+  padding: 50px;
+  border-radius: 20px;
+  margin: auto;
+  box-shadow: 0 0 40px rgba(14, 11, 2, 0.178);
+}
+#login-form {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 290px;
+  width: 280px;
+  box-sizing: border-box;
+  padding: 50px;
+  border-radius: 20px;
+  margin: auto;
+  box-shadow: 0 0 40px rgba(14, 11, 2, 0.178);
+}
