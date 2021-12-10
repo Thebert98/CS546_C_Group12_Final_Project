@@ -10,13 +10,13 @@ const storage = multer.diskStorage({
     destination: './public/images/',
     filename: function(req,file,cb){
         cb(null,file.fieldname + '-' + Date.now() +
-        path.extname(file.originalname));
+        path.extname(file.originalname).toLowerCase());
     }
 });
 const upload = multer({
     storage: storage,
 	fileFilter:function (req,file,cb){
-        if((path.extname(file.originalname)=='.jpeg')||(path.extname(file.originalname)=='.jpg')||(path.extname(file.originalname)=='.png')){
+        if((path.extname(file.originalname).toLowerCase()=='.jpeg')||(path.extname(file.originalname).toLowerCase()=='.jpg')||(path.extname(file.originalname).toLowerCase()=='.png')){
             cb(null,true);
         }
         else{
