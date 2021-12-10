@@ -689,3 +689,80 @@ h3 {
   margin: auto;
   box-shadow: 0 0 40px rgba(14, 11, 2, 0.178);
 }
+#post-a-recipe-form {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 635px;
+  width: 700px;
+  box-sizing: border-box;
+  padding: 50px;
+  border-radius: 20px;
+  margin: auto;
+  box-shadow: 0 0 40px rgba(14, 11, 2, 0.178);
+}
+#formForComment {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 350px;
+  width: 400px;
+  box-sizing: border-box;
+  padding: 50px;
+  border-radius: 20px;
+  margin: auto;
+  box-shadow: 0 0 40px rgba(14, 11, 2, 0.178);
+}
+#formForEditUser {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 400px;
+  width: 400px;
+  box-sizing: border-box;
+  padding: 50px;
+  border-radius: 20px;
+  margin: auto;
+  box-shadow: 0 0 40px rgba(14, 11, 2, 0.178);
+}
+#submit6 {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#submit6:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#submit7 {
+  font-size: 14px;
+  font-family: monospace;
+  padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(40 97 182);
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 1px 1px 5px -2px black;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+#submit7:hover {
+  border: 1px solid rgb(40 97 182);
+  color: rgb(40 97 182);
+  background-color: white;
+  box-shadow: 1px 1px 5px -2px black;
+  padding-right: 20px;
+}
+#sid {
+  text-align: left;
+}

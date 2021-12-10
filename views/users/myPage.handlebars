@@ -65,16 +65,18 @@
         </div>
     </div>
     <div id='editPage' hidden>
-        <form method="POST" action="{{user._id}}/edit" id="formForEditUser" enctype="multipart/form-data">
-        <label for="profilePicture" >Profile Picture:</label>
+        <form method="POST" action="{{user._id}}/edit" id="formForEditUser" enctype="multipart/form-data">UPDATE YOUR PROFILE
+        <br><br>
+        <label for="profilePicture" >Profile Picture</label>
+        <br>
         <input type="file" id="profilePicture" name="profilePicture" accept='image/png, image/jpg, image/jpeg'><br>
         <br>
+        <label for="bio" >Bio</label>
         <br>
-        <label for="bio" >Bio:</label>
         <input type="text" id="bio" name="bio" placeholder="Tell us about yourself..." >
         <br>
         <br>
-        <label for="favoriteRecipe" >Favorite Recipe:</label>
+        <label for="favoriteRecipe" >Favorite Recipe</label>
         <input type="text" id="favoriteRecipe" name="favoriteRecipe" placeholder="What is your favorite recipe...">
         <br>
         <br>
@@ -86,6 +88,8 @@
             {{/if}}
         </div>
         <input type="submit" id='cancel' name='cancel' value="Cancel" >
+        <br>
+        <br>
     </div>
     <div id='recents' hidden>
         <h1>{{user.username}}</h1>

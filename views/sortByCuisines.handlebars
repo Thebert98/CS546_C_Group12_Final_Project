@@ -1,5 +1,5 @@
 <div>
-<form action="/recipe/sortedCuisine" method="post"> 
+<form action="/recipe/sortedCuisine" method="post" id="formForSortByCusisines">
     <label for="cuisines">Sort by Cuisine</label>
     <br><br>
     <select id="cuisines" name="cuisines">
@@ -11,7 +11,7 @@
         <option value="other">Other</option>
     </select>
     <label>
-        <input type="submit" value="Submit Option">
+        <input type="submit" value="Submit Option" id="submit6">
     </label>
 </form>
 </div>
@@ -20,7 +20,7 @@
 {{/if}}
 <div>
     {{#each sortCui}}
-     <ul class='recipeDisplay'>
+    <ul class='recipeDisplay'>
         <li class='recipeList'> 
             <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
             <div class="recipeContent">

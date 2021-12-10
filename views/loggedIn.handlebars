@@ -1,7 +1,8 @@
 <div>
     <h1>FOODGRAM</h1>
     <h2>Hello, {{username}}</h2>
-    <form action="/recipe/searchArecipe" method="post" id="formForSearch">
+    <form action="/recipe/searchArecipe" method="post" id="formForSearch">SEARCH A RECIPE
+        <br>
         <label>
             <input type="text" id="searchTerm" name="searchTerm" placeholder="Search A Recipe">
         </label>
@@ -23,6 +24,7 @@
     </label>
     <br><br>
     <br><br>
+    <h3 id="sid">SORTING FILTERS</h3>
     <button onclick="window.location.href='recipe/sortByDietaryTags'" id="buttonForDtags">SORT BY DIETARY TAGS</button>
     <br><br>
     <button onclick="window.location.href='recipe/sortedCuisine'" id="buttonForCuisine">SORT BY CUISINE</button>
