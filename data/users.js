@@ -125,7 +125,7 @@ async function updateRecentlyViewed(id,recipeId){
     let user = await get(id);
     if(!user)throw "User not found"
     
-        let recipe = await recipeData.get(recipeId);
+    
     
        
     let recentlyViewed = false;
@@ -134,19 +134,19 @@ async function updateRecentlyViewed(id,recipeId){
 
     if(user.recentlyViewedRecipes.length==0){
         
-        user.recentlyViewedRecipes[0] = recipe;
+        user.recentlyViewedRecipes[0] = recipeId;
         
         user.count = user.count +1;
     
     }
     else{
         for(let i = 0; i < user.recentlyViewedRecipes.length;i++){
-            if(recipe._id === user.recentlyViewedRecipes[i]._id) recentlyViewed = true;
+            if(recipeId === user.recentlyViewedRecipes[i]) recentlyViewed = true;
         }
         
         if(!recentlyViewed){
             
-            user.recentlyViewedRecipes[user.count] = recipe;
+            user.recentlyViewedRecipes[user.count] = recipeId;
             if(user.count===4){
                 user.count=0
               
@@ -183,9 +183,9 @@ async function updateRecipes(id,recipeId){
     
     
     let user = await get(id);
-    let recipe = await recipeData.get(recipeId);
+    
 
-    user.recipes.push(recipe);
+    user.recipes.push(recipeId);
     
     
     const userCollection = await users();
@@ -209,22 +209,25 @@ async function updateLikes(id,recipeId){
     
     
     let user = await get(id);
-    let recipe = await recipeData.get(recipeId);
-    let included = false;
     
+    let included = false;
+   
     for(let i = 0;i<user.likes.length;i++){
-        if(recipe._id===user.likes[i]._id){
+        if(recipeId===user.likes[i]){
             included = true;
            
         }
     }
+  
+   // console.log(user)
     if(included)throw "the user liked this post already";
-    user.likes.push(recipe);
+    user.likes.push(recipeId);
     
     
     const userCollection = await users();
     let parsedId = ObjectId(id);
     user._id=parsedId;
+    //console.log(user)
     const updatedInfo = await userCollection.updateOne(
         {_id: parsedId},
         {$set: user}
@@ -244,9 +247,9 @@ async function removeLikes(id,recipeId){
     let included = false;
     let pos=0;
     let user = await get(id);
-    let recipe = await recipeData.get(recipeId);
+   
     for(let i = 0;i<user.likes.length;i++){
-        if(recipe._id===user.likes[i]._id){
+        if(recipeId===user.likes[i]){
             included = true;
             pos = i;
         }
@@ -279,11 +282,11 @@ async function checkLikes(id,recipeId){
     
    
     let user = await get(id);
-    let recipe = await recipeData.get(recipeId);
+    
     
     let check = false;
     for(let i = 0; i < user.likes.length;i++){
-        if(recipe._id === user.likes[i]._id) check = true;
+        if(recipeId === user.likes[i]) check = true;
     }
     return check;
 }

@@ -22,7 +22,7 @@
         <h2>Posted Recipes</h2>
         <div class='table'>
         <ul class='recipeDisplay'>
-                {{#each user.recipes}}
+                {{#each recipes}}
                     <li class='recipeList'> 
                     <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
                     <div class="recipeContent">
@@ -49,7 +49,7 @@
         <h2>Liked Recipes:</h2>
         <div class='table'>
         <ul class='recipeDisplay'>
-                {{#each user.likes}}
+                {{#each likes}}
                     <li class='recipeList'> 
                     <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
                     <div class="recipeContent">
@@ -104,7 +104,7 @@
         <h2>Recently Viewed Recipes:</h2>
         <div class='table'>
         <ul class='recipeDisplay'>
-                {{#each user.recentlyViewedRecipes}}
+                {{#each recentlyViewed}}
                     <li class='recipeList'> 
                     <a  href="/recipe/post/{{_id}}"><img class='recipeListImage' alt='{{_id}} picture' src='/public/images/{{recipePicture}}'/></a><br>
                     <div class="recipeContent">

@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const mongoCollections = require('../config/mongoCollections');
 const userData = require('../data/users')
 const { checkUser, createUser } = require('../data/users');
 const bcrypt = require("bcrypt");
 const saltRounds = 16;
 let { ObjectId } = require('mongodb');
+const recipes = mongoCollections.recipes;
 const xss=require('xss');
 let path = require('path')
-const multer= require('multer')
+const multer= require('multer');
+
 const storage = multer.diskStorage({
     destination: './public/images/',
     filename: function(req,file,cb){
@@ -46,12 +49,32 @@ const upload = multer({
         res.status(400).render('users/error',{error: "you must provide an id"})
         return;
     }
-
+     let recipeCollection = await recipes();
      let sameUser = req.params.id == req.session.userId
      if(sameUser){
         try {
         const user = await userData.get(req.params.id);
-        res.status(200).render('users/myPage',{user: user});
+        let likes = [];
+        let recentlyViewed = [];
+        let recipes = []
+        console.log(user)
+        recipes = await recipeCollection.find({posterId:user._id}).toArray();
+        console.log(recipes)
+        let temp = [];
+        for(let i = 0;i<user.recentlyViewedRecipes.length;i++){
+            let tempId = ObjectId(user.recentlyViewedRecipes[i])
+            temp = await recipeCollection.findOne({_id:tempId});
+            recentlyViewed.push(temp);
+        }
+        temp =[];
+        for(let i = 0;i<user.likes.length;i++){
+            let tempId = ObjectId(user.likes[i])
+            temp = await recipeCollection.findOne({_id:tempId});
+            likes.push(temp);
+        }
+        
+
+        res.status(200).render('users/myPage',{user: user, likes:likes,recipes:recipes,recentlyViewed:recentlyViewed});
         return;
         } catch (e) {
         res.status(404).render('users/error',{ message: 'User not found' });
@@ -62,7 +85,20 @@ const upload = multer({
     else{
         try {
             const user = await userData.get(req.params.id);
-            res.status(200).render('users/userpage',{user: user });
+            let likes = [];
+            let recipes
+            recipes = await recipeCollection.find({posterId:user._id}).toArray();
+            console.log(recipes)
+            let temp = [];
+    
+            for(let i = 0;i<user.likes.length;i++){
+                let tempId = ObjectId(user.likes[i])
+                temp = await recipeCollection.findOne({_id:tempId});
+                likes.push(temp);
+            }
+            
+            res.status(200).render('users/userpage',{user: user,likes:likes, recipes:recipes });
+            console.log(recipes)
             return;
             } catch (e) {
             res.status(404).render('users/error',{ error: e });
