@@ -212,15 +212,15 @@ async function updateLikers(id,userId){
 	let recipe = await get(id);
 	if(!recipe)throw 'recipe not found';
 	
-	let user = await userData.get(userId);
+	
 	
 	let included = false;
 	for(let i = 0;i<recipe.likers.length;i++){
-		if(user._id === recipe.likers[i]._id)included =true;
+		if(userId === recipe.likers[i])included =true;
 	}
 	
 	if(included)throw 'this user has liked this post already';
-	recipe.likers.push(user);
+	recipe.likers.push(userId);
 	recipe.likes = recipe.likers.length;
 	
 	
@@ -251,12 +251,12 @@ let userData = require('./users')
 	let recipe = await get(id);
 	if(!recipe)throw 'recipe not found';
 	
-	let user = await userData.get(userId)
+	
 	
 	let included = false;
 	let pos = 0;
 	for(let i = 0;i<recipe.likers.length;i++){
-		if(user._id === recipe.likers[i]._id){
+		if(userId === recipe.likers[i]){
 			included = true;
 			pos = i;
 		}
