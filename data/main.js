@@ -71,8 +71,8 @@ async function createUsers(firstName,lastName,username,phoneNumber,password){
         throw 'Username should be atleast 4 characters long'
     }
     let r1 = /^[0-9]*$/;
-    if(password.match(r1)){
-        throw 'Password can only contain numbers'
+    if(!phoneNumber.match(r1)){
+        throw 'Phone Number can only contain numbers'
     }
     if(password.length<6){
         throw 'Password should be atleast 6 characters long'
@@ -95,6 +95,13 @@ async function createUsers(firstName,lastName,username,phoneNumber,password){
     }
     if(phoneNumber.length<10){
         throw 'Phone Number cannot have less than 10 numbers'
+    }
+    let regex3 = /\d/;
+    if(firstName.match(regex3)){
+        throw 'First Name cannot contain numbers'
+    }
+    if(lastName.match(regex3)){
+        throw 'Last Name cannot contain numbers'
     }
     username=username.toLowerCase();
     const hash = await bcrypt.hash(password,saltRounds);

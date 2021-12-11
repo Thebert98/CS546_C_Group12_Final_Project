@@ -200,6 +200,41 @@
             valid=true
             errorDiv.hidden=true
         }
+        let regex2 = /^[0-9]*$/;
+        if(!phoneNumberInput.value.match(regex2)){
+            event.preventDefault();
+            valid=false
+            phoneNumberInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Phone Number must only contain numbers'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
+        let regex = /\d/;
+        if(firstNameInput.value.match(regex)){
+            event.preventDefault();
+            valid=false
+            firstNameInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='First Name cannot contain numbers'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
+        if(lastNameInput.value.match(regex)){
+            event.preventDefault();
+            valid=false
+            lastNameInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Last Name cannot contain numbers'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
     });
     }
 })();

@@ -241,6 +241,16 @@ router.post('/searchArecipe', async (req,res)=>{
 		res.status(400).render('users/error',{error: "Input cannot be only whitespace"});
 		return;
 	}
+	let regex1 = /[^0-9a-z]/gi;
+	if(data.searchTerm.match(regex1)){
+		res.status(400).render('users/error',{error:"Input cannot contain special characters"});
+		return;
+	}
+	let regex2 = /\d/;
+	if(data.searchTerm.match(regex2)){
+		res.status(400).render('users/error',{error:"Input cannot contain numbers"});
+		return;
+	}
 	try{
 		let searchResults = await recipeData.searchRecipe(xss(data.searchTerm));
 		res.status(200).render('searchRecipe',{searchResults:searchResults});

@@ -11,7 +11,45 @@
             valid = false
             searchRecipeInput.value = ''
             errorDiv.hidden = false;
-            errorDiv.innerHTML = 'Search Term must be provided'
+            errorDiv.innerHTML = 'No Search Term Was Provided'
+            return
+        }
+        else{
+            valid = true
+            errorDiv.hidden = true
+        }
+        if(searchRecipeInput.value.trim(' ').length===0){
+            event.preventDefault();
+            valid = false
+            searchRecipeInput.value = ''
+            errorDiv.hidden = false;
+            errorDiv.innerHTML = 'Search Term cannot be only whitespaces'
+            return
+        }
+        else{
+            valid = true
+            errorDiv.hidden = true
+        }
+        let regexSearch = /[^0-9a-z]/gi;
+        if(searchRecipeInput.value.match(regexSearch)){
+            event.preventDefault();
+            valid = false
+            searchRecipeInput.value = ''
+            errorDiv.hidden = false;
+            errorDiv.innerHTML = 'Search Term cannot contain special characters'
+            return
+        }
+        else{
+            valid = true
+            errorDiv.hidden = true
+        }
+        let regexSearch1 = /\d/;
+        if(searchRecipeInput.value.match(regexSearch1)){
+            event.preventDefault();
+            valid = false
+            searchRecipeInput.value = ''
+            errorDiv.hidden = false;
+            errorDiv.innerHTML = 'Search Term cannot contain numbers'
             return
         }
         else{

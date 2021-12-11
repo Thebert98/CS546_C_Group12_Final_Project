@@ -30,13 +30,23 @@
             valid = true
             errorDiv.hidden = true
         }
-        let regex3 = /[^0-9a-z]/gi;
-        if(subjectInput.value.match(regex3)){
+        if(subjectInput.value.trim(' ').length===0){
             event.preventDefault();
             valid=false
             subjectInput.value=''
             errorDiv.hidden=false
-            errorDiv.innerHTML='Subject cannot contain special characters'
+            errorDiv.innerHTML='Subject cannot only contain white spaces'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
+        if(descriptionInput.value.trim(' ').length===0){
+            event.preventDefault();
+            valid=false
+            descriptionInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Description cannot only contain white spaces'
             return
         }else{
             valid=true

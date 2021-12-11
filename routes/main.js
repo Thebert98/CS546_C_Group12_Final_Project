@@ -127,6 +127,15 @@ router.post('/signup',async(req,res)=>{
             res.status(400).render('signup',{error:'Last Name cannot contain special characters'});
             return;
         }
+        let regex = /\d/;
+        if(rfirstname.match(regex)){
+            res.status(400).render('signup',{error:'First Name cannot contain numbers'});
+            return;
+        }
+        if(rlastname.match(regex)){
+            res.status(400).render('signup',{error:'Last Name cannot contain numbers'});
+            return;
+        }
         const signupTime = await usersData.createUsers(rfirstname,rlastname,rusername,rphonenumber,rpassword);
         if(signupTime){
             res.redirect('/login');
@@ -194,11 +203,6 @@ router.post('/login',async(req,res)=>{
     }
 });
 
-// router.get('/loggedIn',async(req,res)=>{
-//     // console.log("kewal");
-//     res.render('loggedIn',{username:req.session.user.username});
-    
-// });
 
 router.get('/logout',async(req,res)=>{
     req.session.destroy();

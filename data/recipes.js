@@ -113,7 +113,7 @@ async function create(posterId,recipeName,recipePicture,recipeDescription,ingred
 		return recipe;
 	}
 
-// Search a recipe (NOT WORKING)
+// Search a recipe
 async function searchRecipe(searchTerm){
 	if(!searchTerm){
 		throw 'No searchTerm was provided'
@@ -122,28 +122,19 @@ async function searchRecipe(searchTerm){
 		throw 'searchTerm provided is not a string'
 	}
 	if(searchTerm.trim(' ').length ==0){
-		throw 'Input be just whitespaces'
+		throw 'Input cannot be just whitespaces'
 	}
-
+	let regex1 = /[^0-9a-z]/gi;
+	if(searchTerm.match(regex1)){
+		throw 'Input cannot be special characters'
+	}
+	let regex2 = /\d/;
+	if(searchTerm.match(regex2)){
+		throw 'Search Term cannot contain Numbers'
+	}
 	const searchingForRecipe = await recipes();
 	await searchingForRecipe.createIndex({recipeName: "text"});
 	const recipeSearch = await searchingForRecipe.find({$text:{$search: searchTerm}}).toArray();
-	
-
-	/*var retArray = [];
-	var a;
-	var b;
-	const searchingForRecipe = await recipes();
-	const recipeSearch = await searchingForRecipe.find({}).toArray();
-	for(i=0;i<recipeSearch.length;i++){
-		let retObj={}
-		a=recipeSearch[i].recipeName;
-		b=recipeSearch[i]._id.toString();
-		retObj['id']=b;
-		retObj['recipeName']=a;
-		retArray.push(retObj);
-	}
-	*/
 	return recipeSearch.reverse();
 }
 
