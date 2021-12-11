@@ -27,13 +27,18 @@ async function createComment(recipeId,subject,description){
   if(typeof description!='string'){
     throw 'Description must be a string'
   }
+  if(subject.trim(' ').length===0){
+    throw 'Subject cannot contain only whitespaces'
+  }
+  if(description.trim(' ').length===0){
+    throw 'Description cannot contain only whitespaces'
+  }
   let x = ObjectId(recipeId);
   let commentObj = {subject:subject,description:description};
   const getRecipes = await recipesC();
   const insertComment = await getRecipes.updateOne({_id:x},{$push:{comments:commentObj}});
   return insertComment;
 }
-// createComment('61ac5ab7a024e4bd1fcd180a','xyz','Amazing')
 
 
 module.exports={createComment}

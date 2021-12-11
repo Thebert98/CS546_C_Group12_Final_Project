@@ -90,7 +90,50 @@
             valid=true
             errorDiv.hidden=true
         }
-        
+        if(recipedescriptionInput.value.trim(' ').length ===0){
+            event.preventDefault();
+            valid=false
+            recipedescriptionInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Recipe Description cannot contain only whitespace'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
+        if(ingredientsInput.value.trim(' ').length ===0){
+            event.preventDefault();
+            valid=false
+            ingredientsInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Ingredients cannot contain only whitespace'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
+        if(preppingdirectionInput.value.trim(' ').length ===0){
+            event.preventDefault();
+            valid=false
+            preppingdirectionInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Prepping Directions cannot contain only whitespace'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
+        if(cookingdirectionsInput.value.trim(' ').length ===0){
+            event.preventDefault();
+            valid=false
+            cookingdirectionsInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Cooking Directions cannot contain only whitespace'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
         let regex3 = /[^0-9a-z\s]/gi;
         if(recipenameInput.value.match(regex3)){
             event.preventDefault();

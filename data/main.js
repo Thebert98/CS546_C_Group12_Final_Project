@@ -103,6 +103,10 @@ async function createUsers(firstName,lastName,username,phoneNumber,password){
     if(lastName.match(regex3)){
         throw 'Last Name cannot contain numbers'
     }
+    let r2 = /^\d+$/;
+    if(username.match(r2)){
+        throw 'Username cannot contain only Numbers'
+    }
     username=username.toLowerCase();
     const hash = await bcrypt.hash(password,saltRounds);
     const userCollections = await users();
@@ -163,6 +167,10 @@ async function checkUser(username,password){
     }
     if(password.length < 6){
         throw 'Password must be atleast 6 characters long'
+    }
+    let r5 = /^\d+$/;
+    if(username.match(r5)){
+        throw 'Username cannot contain only numbers'
     }
     const searchUser = await users();
     const foundUsers = await searchUser.findOne({username:username});

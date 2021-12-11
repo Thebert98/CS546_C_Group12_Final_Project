@@ -136,6 +136,11 @@ router.post('/signup',async(req,res)=>{
             res.status(400).render('signup',{error:'Last Name cannot contain numbers'});
             return;
         }
+        let r3 = /^\d+$/;
+        if(rusername.match(r3)){
+            res.status(400).render('signup',{error:'Username cannot contain only numbers'});
+            return;
+        }
         const signupTime = await usersData.createUsers(rfirstname,rlastname,rusername,rphonenumber,rpassword);
         if(signupTime){
             res.redirect('/login');
@@ -185,8 +190,13 @@ router.post('/login',async(req,res)=>{
         }
         let regexa = /[^0-9a-z]/gi
         if(r1username.match(regexa)){
-        res.status(400).render('login',{error:'Username cannot contain special characters'});
-        return;
+            res.status(400).render('login',{error:'Username cannot contain special characters'});
+            return;
+        }
+        let r4 = /^\d+$/;
+        if(r1username.match(r4)){
+            res.status(400).render('login',{error:'Username cannot contain only numbers'});
+            return;
         }
         const getLoggedIn = await usersData.checkUser(r1username,r1password);
         if(getLoggedIn){

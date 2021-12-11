@@ -40,7 +40,12 @@ async function create(posterId,recipeName,recipePicture,recipeDescription,ingred
 	if (!cuisineType || typeof cuisineType != 'string') {
 		throw 'kindly enter cusine and it must be string';
 	}
-
+	if(cuisineType != 'italian' && cuisineType!='mexican' && cuisineType!='indian' && cuisineType !='american' && cuisineType !='lebanese' && cuisineType!='other'){
+		throw 'Invalid Cuisine Type'
+	}
+	if(dietaryTags != 'vegan' && dietaryTags!='vegetarian' && dietaryTags!='nonvegetarian'){
+		throw 'Invalid dietary tag'
+	}
 	if((path.extname(recipePicture).toLowerCase()!=='.jpeg')&&(path.extname(recipePicture).toLowerCase()!=='.jpg')&&(path.extname(recipePicture).toLowerCase()!=='.png')) throw 'Provided file was not a jpeg, png, or jpg';
 	let userData = require('./users')
 	try{

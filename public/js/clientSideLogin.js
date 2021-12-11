@@ -87,6 +87,18 @@
             valid=true
             errorDiv.hidden=true
         }
+        let reg = /^\d+$/;
+        if(usernameInput.value.match(reg)){
+            event.preventDefault();
+            valid=false
+            usernameInput.value=''
+            errorDiv.hidden=false
+            errorDiv.innerHTML='Username cannot only contain numbers'
+            return
+        }else{
+            valid=true
+            errorDiv.hidden=true
+        }
     });
     }
 })();

@@ -27,6 +27,14 @@ router.post('/',async(req,res)=>{
         res.status(404).render('recipe',{error:'No Description was provided'});
         return;
     }
+    if(subjectLineRoutes.trim(' ').length===0){
+        res.status(404).render('recipe',{error:'Subject Line cannot contain only whitespaces'});
+        return;
+    }
+    if(descriptionRoutes.trim(' ').length===0){
+        res.status(404).render('recipe',{error:'Description cannot contain only whitespaces'});
+        return;
+    }
     try{
     const postingComment = await commentData.createComment(recipeIdRoutes,subjectLineRoutes,descriptionRoutes);
     if(postingComment){

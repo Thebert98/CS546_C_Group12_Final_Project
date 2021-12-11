@@ -57,9 +57,7 @@ const upload = multer({
         let likes = [];
         let recentlyViewed = [];
         let recipes = []
-        console.log(user)
         recipes = await recipeCollection.find({posterId:user._id}).toArray();
-        console.log(recipes)
         let temp = [];
         for(let i = 0;i<user.recentlyViewedRecipes.length;i++){
             let tempId = ObjectId(user.recentlyViewedRecipes[i])
@@ -88,7 +86,6 @@ const upload = multer({
             let likes = [];
             let recipes
             recipes = await recipeCollection.find({posterId:user._id}).toArray();
-            console.log(recipes)
             let temp = [];
     
             for(let i = 0;i<user.likes.length;i++){
@@ -98,7 +95,6 @@ const upload = multer({
             }
             
             res.status(200).render('users/userpage',{user: user,likes:likes, recipes:recipes });
-            console.log(recipes)
             return;
             } catch (e) {
             res.status(404).render('users/error',{ error: e });

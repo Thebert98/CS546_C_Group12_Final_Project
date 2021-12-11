@@ -123,6 +123,14 @@ router.post('/postArecipe',upload.single('avatar'),async(req,res)=>
 		res.status(404).render('postArecipe',{error:'Recipe Name cannot have special characters'});
 		return;
 	}
+	if(cuisineTypeRoutes!='italian' && cuisineTypeRoutes!='mexican' && cuisineTypeRoutes!='indian' && cuisineTypeRoutes!='american' && cuisineTypeRoutes!='lebanese' && cuisineTypeRoutes!='other'){
+		res.status(404).render('postArecipe',{error:'Invalid Cuisine Type'});
+		return;
+	}
+	if(dietaryTagsRoutes != 'vegan' && dietaryTagsRoutes!='vegetarian' && dietaryTagsRoutes!='nonvegetarian'){
+		res.status(404).render('postArecipe',{error:'Invalid Dietary Tag'});
+		return;
+	}
 	const postTime = await recipeData.create(req.session.userId,recipeNameRoutes,recipePictureRoutes,recipeDescriptionRoutes,ingredientsRoutes,preppingDirectionsRoutes,cookingDirectionsRoutes,cuisineTypeRoutes,dietaryTagsRoutes);
 	if(postTime){
 		try{
