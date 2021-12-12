@@ -11,7 +11,6 @@ Main Contributors.
 
 ## Introduction
 
-
 The purpose of this application is to allow its users to share their favorite recipes with other users via a social media-like format. The users will be able to personalize their user page and like and comment on other users’ recipe posts. Users will also be able to sort recipes by likes, cuisine origin, and date posted.
 
 ## Core features
@@ -46,8 +45,18 @@ Install the dependencies and devDependencies and start the server.
 ```sh
 cd projectDirName
 npm install
+cd tasks
+node seed.js
 npm start
 ```
+
+## Usernames and Passwords
+
+1. Username - yash, Password - password1
+2. Username - ruchita, Password - 2password
+3. Username - monica, Password - 3password
+4. Username - viraj, Password - 4password
+5. Username - dherin, Password - 5password
 
 ## License
 
