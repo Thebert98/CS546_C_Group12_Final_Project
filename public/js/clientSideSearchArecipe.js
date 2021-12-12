@@ -30,19 +30,19 @@
             valid = true
             errorDiv.hidden = true
         }
-        let regexSearch = /[^0-9a-z]/gi;
-        if(searchRecipeInput.value.match(regexSearch)){
-            event.preventDefault();
-            valid = false
-            searchRecipeInput.value = ''
-            errorDiv.hidden = false;
-            errorDiv.innerHTML = 'Search Term cannot contain special characters'
-            return
-        }
-        else{
-            valid = true
-            errorDiv.hidden = true
-        }
+        // let regexSearch = /[^0-9a-z]/gi;
+        // if(searchRecipeInput.value.match(regexSearch)){
+        //     event.preventDefault();
+        //     valid = false
+        //     searchRecipeInput.value = ''
+        //     errorDiv.hidden = false;
+        //     errorDiv.innerHTML = 'Search Term cannot contain special characters'
+        //     return
+        // }
+        // else{
+        //     valid = true
+        //     errorDiv.hidden = true
+        // }
         let regexSearch1 = /\d/;
         if(searchRecipeInput.value.match(regexSearch1)){
             event.preventDefault();
