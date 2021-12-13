@@ -13,7 +13,7 @@ Main Contributors.
 
 The purpose of this application is to allow its users to share their favorite recipes with other users via a social media-like format. The users will be able to personalize their user page and like and comment on other users’ recipe posts. Users will also be able to sort recipes by likes, cuisine origin, and date posted.
 
-## Core features
+## Core features(All Implemented)
 
 - **User Profile**:- Users will be able to personalize their page with a profile picture, favorite recipe, and a bio. Posts by that user will be visible when viewing their profile page
 - **Landing page**:- explains the functionality and purpose of the website
